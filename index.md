@@ -1,0 +1,4 @@
+---
+title: Plain Old Emacs
+---
+
