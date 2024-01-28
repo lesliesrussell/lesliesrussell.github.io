@@ -12,10 +12,13 @@
 #+cite_export:
 
 #+CAPTION: Remodeling Emacs -- It has good bones
-#+ATTR_HTML: :alt logo image :title This Old Emacs :align right
+#+ATTR_HTML: :alt logo image :title This Old Emacs
+
 [[./assets/logo.png]]
 
 * I Love Emacs
+
+This is not at all important. But....
 
 I first got a copy of the Slackware Book in 1998 maybe give or take a year. Of course vi/m was installed by default and was always very cringe, but what could you do? Somewhere in the book or maybe online somewhere (back then I accessed the internet via a BBS and had to load all the protocols each time) was a description of emacs with maybe a screenshot (probably a word or two about nano etc.). Once I installed emacs, I have never looked back. I haven't used Windows or OSX anywhere but work since.
 
