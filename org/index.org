@@ -1,8 +1,7 @@
-#+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+options: author:t broken-links:nil c:nil creator:nil
 #+options: d:(not "LOGBOOK") date:t e:t email:nil f:t inline:t num:t
 #+options: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
-#+options: timestamp:t title:t toc:t todo:t |:t
+#+options: timestamp:nil title:t toc:nil todo:t |:t
 #+title: This Old Emacs
 #+author: Leslie S Russell
 #+language: en
@@ -17,8 +16,6 @@
 [[./assets/logo.png]]
 
 * I Love Emacs
-
-This is not at all important. But....
 
 I first got a copy of the Slackware Book in 1998 maybe give or take a year. Of course vi/m was installed by default and was always very cringe, but what could you do? Somewhere in the book or maybe online somewhere (back then I accessed the internet via a BBS and had to load all the protocols each time) was a description of emacs with maybe a screenshot (probably a word or two about nano etc.). Once I installed emacs, I have never looked back. I haven't used Windows or OSX anywhere but work since.
 
