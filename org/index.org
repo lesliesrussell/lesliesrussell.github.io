@@ -13,7 +13,7 @@
 
 #+CAPTION: Remodeling Emacs -- It has good bones
 #+ATTR_HTML: :alt logo image :title This Old Emacs :align right
-[[file:assets/logo.png]]
+[[./assets/logo.png]]
 
 * I Love Emacs
 
