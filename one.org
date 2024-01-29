@@ -1,0 +1,28 @@
+* one.el
+:PROPERTIES:
+:ONE: one-default-with-sidebar
+:CUSTOM_ID: /
+:END:
+
+This is my website. There are many like it, but this one is mine.
+
+
+* COMMENT List all website's pages on the home page
+:PROPERTIES:
+:ONE: one-default-home-list-pages
+:CUSTOM_ID: /blog/default-home-list-pages/
+:END:
+
+This page is rendered with the default render function
+~one-default-home-list-pages~ specified in ~ONE~ org property which lists
+below all the pages on the website.  You can use it instead of
+~one-default-home~ for your home page.
+
+* The default page
+:PROPERTIES:
+:ONE: one-default
+:CUSTOM_ID: /blog/default/
+:END:
+
+This page is rendered with the default render function ~one-default~
+specified in ~ONE~ org property.
