@@ -1,22 +1,23 @@
-* one.el
 :PROPERTIES:
+* This Old Emacs
 :ONE: one-default-with-sidebar
 :CUSTOM_ID: /
 :END:
 
-This is my website. There are many like it, but this one is mine.
+[[file:./assets/logo-1.png]]
+
+* I Love Emacs
+
+I am really trying to contribute. I don't really have anything worth saying or sharing, but I will keep on trying.
 
 
-* COMMENT List all website's pages on the home page
+* home
 :PROPERTIES:
 :ONE: one-default-home-list-pages
 :CUSTOM_ID: /blog/default-home-list-pages/
 :END:
 
-This page is rendered with the default render function
-~one-default-home-list-pages~ specified in ~ONE~ org property which lists
-below all the pages on the website.  You can use it instead of
-~one-default-home~ for your home page.
+I hope this list self updates
 
 * The default page
 :PROPERTIES:
@@ -24,5 +25,4 @@ below all the pages on the website.  You can use it instead of
 :CUSTOM_ID: /blog/default/
 :END:
 
-This page is rendered with the default render function ~one-default~
-specified in ~ONE~ org property.
+Maybe this will be a blog list. Who knows.
