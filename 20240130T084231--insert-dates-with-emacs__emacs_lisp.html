@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-01-30 Tue 09:50 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>insert dates with emacs</title>
+<meta name="author" content="Leslie S Russell" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet"
+		  href="./assets/site.css" type="text/css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">insert dates with emacs</h1>
+
+<div id="outline-container-org15c9be3" class="outline-2">
+<h2 id="org15c9be3">Well that was easy</h2>
+<div class="outline-text-2" id="text-org15c9be3">
+<p>
+All it really took was a quick duck and boom, there's the <a href="https://www.emacswiki.org/emacs/InsertingTodaysDate">answer</a>!
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">date</span> (arg)
+  (<span style="color: #ffff0b;">interactive</span> <span style="color: #ff7fff;">"P"</span>)
+  (insert (<span style="color: #ffff0b;">if</span> arg
+              (format-time-string <span style="color: #ff7fff;">"%d.%m.%Y"</span>)
+            (format-time-string <span style="color: #ff7fff;">"%Y-%m-%d"</span>))))
+
+(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">timestamp</span> ()
+  (<span style="color: #ffff0b;">interactive</span>)
+  (insert (format-time-string <span style="color: #ff7fff;">"%Y-%m-%dT%H:%M:%S"</span>)))
+
+(global-set-key (kbd <span style="color: #ff7fff;">"C-x M-d"</span>) #'date)
+(global-set-key (kbd <span style="color: #ff7fff;">"C-x M-t"</span>) #'timestamp)
+
+</pre>
+</div>
+
+<p>
+A little underwhelming if I'm honest, I was hoping for a fun destraction but was left with a little frustration around having to type the keys <b>"C-x M-d"</b> for the binding. I realized what I really want is a way to just insert the correct code because it is so reptative.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org42b2e64" class="outline-2">
+<h2 id="org42b2e64">how to get the key</h2>
+<div class="outline-text-2" id="text-org42b2e64">
+<p>
+I want a way to prompt me for the key, and then insert that into the buffer with the code wrapped around it. Lucky for me I already have the first part <a href="20240130T014933--temporarily-rebind-a-key-in-emacs__emacs_lisp.html">solved</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">get-chord</span> ()
+  <span style="color: #fd95fa;">"Get the key chord from user."</span>
+  (<span style="color: #ffff0b;">interactive</span>)
+  (<span style="color: #ffff0b;">setq</span> keys (read-key-sequence <span style="color: #ff7fff;">"Enter the key sequence to bind: "</span>))
+  (insert (format <span style="color: #ff7fff;">"(global-set-key (kbd \"%s\") )"</span> (key-description keys))))
+</pre>
+</div>
+
+<p>
+This gives me a quick way to insert a hunk of code that I find myself typing over and over. But I still gotta type the function:
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">get-chord</span> ()
+  <span style="color: #fd95fa;">"Get the key chord from user."</span>
+  (<span style="color: #ffff0b;">interactive</span>)
+  (<span style="color: #ffff0b;">setq</span> keys (read-key-sequence <span style="color: #ff7fff;">"Enter the key sequence to bind: "</span>))
+  (<span style="color: #ffff0b;">setq</span> cmd (read-command <span style="color: #ff7fff;">"Enter the command to bind to the key: "</span>))
+  (insert (format <span style="color: #ff7fff;">"(global-set-key (kbd \"%s\") #</span><span style="color: #06ffff; font-weight: bold;">\</span><span style="color: #ff7fff;">'%s)"</span> (key-description keys) cmd)))
+</pre>
+</div>
+
+<p>
+Now I can just use my new function to insert a binding for this function into my init:
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">(get-chord)
+(global-set-key (kbd <span style="color: #ff7fff;">"C-c k"</span>) #'get-chord)
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgc2d6c65" class="outline-3">
+<h3 id="orgc2d6c65">errors and omissions</h3>
+<div class="outline-text-3" id="text-orgc2d6c65">
+<p>
+This little gadget works fine if I just rely on <a href="https://www.gnu.org/software/emacs/">GNU Emacs</a> builtin completion but I could still type an incorrect function and that would cause me pain down the road. So I better add some error correction, and clean it up so it is a little more readable.
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">get-chord</span> ()
+  <span style="color: #fd95fa;">"Prompt the user for a key sequence and a command, then insert a global-set-key form."</span>
+  (<span style="color: #ffff0b;">interactive</span>)
+  (<span style="color: #ffff0b;">let</span> ((keys (read-key-sequence <span style="color: #ff7fff;">"Enter the key sequence to bind: "</span>))
+        (cmd (read-command <span style="color: #ff7fff;">"Enter the command to bind to the key: "</span>)))
+    (<span style="color: #ffff0b;">unless</span> (commandp cmd)
+      (<span style="color: #06ffff; font-weight: bold;">error</span> <span style="color: #ff7fff;">"%s is not a valid command"</span> cmd))
+    (insert (format <span style="color: #ff7fff;">"(global-set-key (kbd \"%s\") #</span><span style="color: #06ffff; font-weight: bold;">\</span><span style="color: #ff7fff;">'%s)"</span>
+                    (key-description keys) cmd))))
+</pre>
+</div>
+
+<p>
+Now that works, but what if the key is already bound? I don't want to just clobber the current key binding&#x2026;unless I do. So I need to check to see if the key is already occupied and then give myself a way to do something potentially stupid.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9150ba2" class="outline-3">
+<h3 id="org9150ba2">the finished product</h3>
+<div class="outline-text-3" id="text-org9150ba2">
+<p>
+While it has very little to do with inserting dates into a buffer one problem with an easy solution lead me to a handy bit of reusable automation.
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">  (<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">get-chord</span> ()
+  <span style="color: #fd95fa;">"Prompt the user for a key sequence and a command, and then insert a global-set-key form.</span>
+<span style="color: #fd95fa;">If the key is already bound and no universal argument is given, an error is raised."</span>
+  (<span style="color: #ffff0b;">interactive</span>)
+  (<span style="color: #ffff0b;">let</span> ((keys (read-key-sequence <span style="color: #ff7fff;">"Enter the key sequence to bind: "</span>))
+        (cmd (read-command <span style="color: #ff7fff;">"Enter the command to bind to the key: "</span>)))
+    <span style="color: #767283;">;; </span><span style="color: #767283; font-style: italic;">Check if the command is valid</span>
+    (<span style="color: #ffff0b;">unless</span> (commandp cmd)
+      (<span style="color: #06ffff; font-weight: bold;">error</span> <span style="color: #ff7fff;">"%s is not a valid command"</span> cmd))
+    <span style="color: #767283;">;; </span><span style="color: #767283; font-style: italic;">Check if the key is already bound, proceed only if universal argument is given</span>
+    (<span style="color: #ffff0b;">when</span> (<span style="color: #ffff0b;">and</span> (not current-prefix-arg)
+               (key-binding (kbd (key-description keys))))
+      (<span style="color: #06ffff; font-weight: bold;">error</span> <span style="color: #ff7fff;">"Key %s is already bound. Use a universal argument to override."</span>
+             (key-description keys)))
+    (insert (format <span style="color: #ff7fff;">"(global-set-key (kbd \"%s\") #'%%s)"</span>
+                    (key-description keys) cmd))))
+</pre>
+</div>
+
+<p>
+So now I can bind this function to an unused key, or just call it from the <code>execute-extended-command</code> and get my snippet inserted right where I want it all while feeling secure that I didn't blindly screw up something already in use.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2024-01-30 Tue 08:42</p>
+<p class="author">Author: Leslie S Russell</p>
+<p class="date">Created: 2024-01-30 Tue 09:50</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
