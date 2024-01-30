@@ -1,0 +1,82 @@
+/* General Body Styling */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f4f4f4;
+  padding: 20px;
+}
+
+#content {
+  max-width: 60em;
+  margin: auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Headings */
+h1.title, h2 {
+  color: #0275d8; /* Bootstrap primary color */
+}
+
+/* Text and Paragraphs */
+p {
+  margin-bottom: 1em;
+}
+
+/* Lists */
+ul.org-ul {
+  padding-left: 20px;
+}
+
+/* Code Blocks */
+pre.src {
+  background-color: #f7f7f7;
+  border: 1px solid #ccc;
+  padding: 10px;
+  overflow-x: auto;
+}
+
+/* Links */
+a {
+  color: #d9534f; /* Bootstrap danger color */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1em;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f7f7f7;
+}
+
+/* Images */
+.figure img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Footer */
+#postamble {
+  font-size: 0.8em;
+  text-align: center;
+  margin-top: 40px;
+}
