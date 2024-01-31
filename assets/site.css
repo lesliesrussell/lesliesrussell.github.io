@@ -1,8 +1,8 @@
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
-  color: #ddd;
-  background-color: #222;
+  color: #FFBF00;
+  background-color: #1a1a00;
   padding: 20px;
 }
 @media (max-width: 768px) {
@@ -13,13 +13,13 @@ body {
 body #content {
   max-width: 60em;
   margin: auto;
-  background: #333;
+  background: #2a2a00;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
 }
 body #content a {
-  color: #f0ad4e;
+  color: #33C3F0;
   text-decoration: none;
 }
 body #content a:hover {
@@ -31,7 +31,7 @@ body #content a:focus, body #content a:active {
 }
 body #footnotes {
   font-size: 0.8em;
-  color: #555;
+  color: #a67f00;
   margin-top: 20px;
 }
 body #footnotes .footdef {
@@ -41,14 +41,21 @@ body #footnotes .footnum {
   font-weight: bold;
 }
 body #footnotes .footpara {
-  color: #666;
+  color: #b89f00;
   text-indent: -10px;
   margin-left: 20px;
 }
 
-h1.title, h2 {
-  color: #4fc3f7;
+h1.title {
+  color: #FFD700;
   text-align: center;
+  font-size: 2em;
+  font-weight: 900;
+}
+
+h2 {
+  color: #FFD700;
+  text-align: left;
 }
 
 p {
@@ -60,16 +67,16 @@ ul.org-ul {
 }
 
 pre.src {
-  background-color: #2b2b2b;
+  background-color: #292900;
   border: 1px solid #444;
   padding: 10px;
   overflow-x: auto;
 }
 
 blockquote {
-  background-color: #303030;
-  border-left: 5px solid #346392;
-  color: #ddd;
+  background-color: #262600;
+  border-left: 5px solid #CCAC00;
+  color: #FFBF00;
   font-family: Georgia, serif;
   font-style: italic;
   padding: 20px;
@@ -78,7 +85,7 @@ blockquote {
 blockquote cite {
   display: block;
   font-style: normal;
-  color: white;
+  color: #ffd966;
   text-align: right;
   font-size: 0.9em;
 }
@@ -87,48 +94,54 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 1em;
+  background-color: #292900;
+  color: #FFBF00;
 }
 table th, table td {
-  border: 0;
+  border: 1px solid #444;
   padding: 8px;
   text-align: left;
 }
 table th:first-child th, table td:first-child th {
-  background-color: #3c3c3c;
+  background-color: #242400;
 }
 
 #postamble {
   font-size: 0.8em;
   text-align: center;
   margin-top: 40px;
-  color: #aaa;
+  color: #999;
 }
 
-.todo, .done, .priority, .tag {
+.todo {
   font-family: monospace;
-  color: red;
+  color: #FFBF00;
 }
 
 .done {
-  color: green;
+  font-family: monospace;
+  color: #FFBF00;
+  color: black;
 }
 
 .priority {
-  color: orange;
+  font-family: monospace;
+  color: #FFBF00;
+  color: #33C3F0;
 }
 
 .tag {
-  background-color: #eee;
+  background-color: #4d4d00;
   padding: 2px;
   font-weight: normal;
 }
 
 .timestamp {
-  color: #bebebe;
+  color: #ffc60d;
 }
 
 .timestamp-kwd {
-  color: #5f9ea0;
+  color: #FFD700;
 }
 
 .org-right, .org-left, .org-center {
@@ -152,7 +165,7 @@ p.verse {
 }
 
 a:focus {
-  outline: 3px solid #aaa;
+  outline: 3px solid #92dff7;
 }
 
 .org-right {
