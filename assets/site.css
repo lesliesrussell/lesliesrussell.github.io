@@ -2,23 +2,23 @@
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
-  color: #333;
-  background-color: #f4f4f4;
+  color: #ddd; /* Lighter text for dark background */
+  background-color: #222; /* Dark background */
   padding: 20px;
 }
 
 #content {
   max-width: 60em;
   margin: auto;
-  background: #fff;
+  background: #333; /* Darker shade for content background */
   padding: 20px;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1); /* Shadow adjusted for dark theme */
 }
 
 /* Headings */
 h1.title, h2 {
-  color: #0275d8; /* Bootstrap primary color */
+  color: #4fc3f7; /* Lighter shade for headings, similar to Bootstrap info color */
 }
 
 /* Text and Paragraphs */
@@ -33,15 +33,15 @@ ul.org-ul {
 
 /* Code Blocks */
 pre.src {
-  background-color: #f7f7f7;
-  border: 1px solid #ccc;
+  background-color: #2b2b2b; /* Dark background for code blocks */
+  border: 1px solid #444; /* Dark border for code blocks */
   padding: 10px;
   overflow-x: auto;
 }
 
 /* Links */
 a {
-  color: #d9534f; /* Bootstrap danger color */
+  color: #f0ad4e; /* Lighter color for links, similar to Bootstrap warning color */
   text-decoration: none;
 }
 
@@ -57,13 +57,13 @@ table {
 }
 
 th, td {
-  border: 1px solid #ddd;
+  border: 0px solid transparent;
   padding: 8px;
   text-align: left;
 }
 
 th {
-  background-color: #f7f7f7;
+  background-color: #3c3c3c; /* Darker background for table headers */
 }
 
 /* Images */
@@ -79,4 +79,5 @@ th {
   font-size: 0.8em;
   text-align: center;
   margin-top: 40px;
+  color: #aaa; /* Lighter text color for footer */
 }
