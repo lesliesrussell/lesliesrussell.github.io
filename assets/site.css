@@ -1,0 +1,176 @@
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #FFBF00;
+  background-color: #1a1a00;
+  padding: 20px;
+}
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+}
+body #content {
+  max-width: 60em;
+  margin: auto;
+  background: #2a2a00;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+body #content a {
+  color: #33C3F0;
+  text-decoration: none;
+}
+body #content a:hover {
+  text-decoration: underline;
+}
+body #content a:focus, body #content a:active {
+  outline: none;
+  border: none;
+}
+body #footnotes {
+  font-size: 0.8em;
+  color: #a67f00;
+  margin-top: 20px;
+}
+body #footnotes .footdef {
+  margin-bottom: 10px;
+}
+body #footnotes .footnum {
+  font-weight: bold;
+}
+body #footnotes .footpara {
+  color: #b89f00;
+  text-indent: -10px;
+  margin-left: 20px;
+}
+
+h1.title {
+  color: #FFD700;
+  text-align: center;
+  font-size: 2em;
+  font-weight: 900;
+}
+
+h2 {
+  color: #FFD700;
+  text-align: left;
+}
+
+p {
+  margin-bottom: 1em;
+}
+
+ul.org-ul {
+  padding-left: 20px;
+}
+
+pre.src {
+  background-color: #292900;
+  border: 1px solid #444;
+  padding: 10px;
+  overflow-x: auto;
+}
+
+blockquote {
+  background-color: #262600;
+  border-left: 5px solid #CCAC00;
+  color: #FFBF00;
+  font-family: Georgia, serif;
+  font-style: italic;
+  padding: 20px;
+  margin: 20px 0;
+}
+blockquote cite {
+  display: block;
+  font-style: normal;
+  color: #ffd966;
+  text-align: right;
+  font-size: 0.9em;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1em;
+  background-color: #292900;
+  color: #FFBF00;
+}
+table th, table td {
+  border: 1px solid #444;
+  padding: 8px;
+  text-align: left;
+}
+table th:first-child th, table td:first-child th {
+  background-color: #242400;
+}
+
+#postamble {
+  font-size: 0.8em;
+  text-align: center;
+  margin-top: 40px;
+  color: #999;
+}
+
+.todo {
+  font-family: monospace;
+  color: #FFBF00;
+}
+
+.done {
+  font-family: monospace;
+  color: #FFBF00;
+  color: black;
+}
+
+.priority {
+  font-family: monospace;
+  color: #FFBF00;
+  color: #33C3F0;
+}
+
+.tag {
+  background-color: #4d4d00;
+  padding: 2px;
+  font-weight: normal;
+}
+
+.timestamp {
+  color: #ffc60d;
+}
+
+.timestamp-kwd {
+  color: #FFD700;
+}
+
+.org-right, .org-left, .org-center {
+  text-align: right;
+}
+
+.org-left {
+  text-align: left;
+}
+
+.org-center {
+  text-align: center;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+p.verse {
+  margin-left: 3%;
+}
+
+a:focus {
+  outline: 3px solid #92dff7;
+}
+
+.org-right {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+/*# sourceMappingURL=site.css.map */

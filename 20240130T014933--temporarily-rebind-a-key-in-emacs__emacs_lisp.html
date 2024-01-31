@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-01-31 Wed 15:44 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>temporarily rebind a key in emacs</title>
+<meta name="author" content="Leslie S Russell" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet"
+		href="./assets/site.css" type="text/css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">temporarily rebind a key in emacs</h1>
+
+<div id="outline-container-h:d2c864d2-7d1a-4d71-9a44-19131cfd8e3a" class="outline-2">
+<h2 id="h:d2c864d2-7d1a-4d71-9a44-19131cfd8e3a">temporarily rebind keys</h2>
+<div class="outline-text-2" id="text-h:d2c864d2-7d1a-4d71-9a44-19131cfd8e3a">
+<p>
+So for some reason or another, I wanted to temporarily rebind a key and then just forget about it. I wanted it to just automagically revert to the original setting and not bother me. This is what I came up with, and it works pretty well.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">my-temporary-bind-key-with-restore</span> ()
+  <span style="color: #fd95fa;">"Prompt for a register, a key sequence, and a command to temporarily bind the key to,</span>
+<span style="color: #fd95fa;">   then automatically restore the original binding after a specified duration."</span>
+  (<span style="color: #ffff0b;">interactive</span>)
+  (<span style="color: #ffff0b;">let*</span> ((register (read-char <span style="color: #ff7fff;">"Choose a register to save the current binding: "</span>))
+         (key (read-key-sequence <span style="color: #ff7fff;">"Enter the key sequence to bind: "</span>))
+         (original-command (key-binding key))
+         (new-command (read-command <span style="color: #ff7fff;">"Enter the command to bind to the key: "</span>))
+         (duration (read-number <span style="color: #ff7fff;">"Enter the duration in seconds for the temporary binding: "</span>)))
+    <span style="color: #767283;">;; </span><span style="color: #767283; font-style: italic;">Save the original key binding to the register</span>
+    (set-register register (format <span style="color: #ff7fff;">"%S"</span> (cons key original-command)))
+    <span style="color: #767283;">;; </span><span style="color: #767283; font-style: italic;">Set the new temporary binding</span>
+    (global-set-key key new-command)
+    (message <span style="color: #ff7fff;">"Temporarily bound %s to %s for %d seconds. Original binding saved in register '</span><span style="color: #34c8d8;">%c</span><span style="color: #ff7fff;">'"</span>
+             key new-command duration register)
+    <span style="color: #767283;">;; </span><span style="color: #767283; font-style: italic;">Schedule to restore the original binding</span>
+    (run-at-time duration nil
+                 `(<span style="color: #ffff0b;">lambda</span> ()
+                    (<span style="color: #ffff0b;">let</span> ((stored-value (get-register ,register)))
+                      (<span style="color: #ffff0b;">when</span> stored-value
+                        (<span style="color: #ffff0b;">let</span> ((key-command-pair (read stored-value)))
+                          (global-set-key ,key (cdr key-command-pair))
+                          (message <span style="color: #ff7fff;">"Restored command %s to key %s from register '</span><span style="color: #34c8d8;">%c</span><span style="color: #ff7fff;">'"</span>
+                                   (cdr key-command-pair) ,key ,register))))))))
+
+(global-set-key (kbd <span style="color: #ff7fff;">"C-c l"</span>) 'my-temporary-bind-key-with-restore)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2024-01-30 Tue 01:49</p>
+<p class="author">Author: Leslie S Russell</p>
+<p class="date">Created: 2024-01-31 Wed 15:44</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-01-31 Wed 15:44 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>insert dates with emacs</title>
+<meta name="author" content="Leslie S Russell" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet"
+		href="./assets/site.css" type="text/css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">insert dates with emacs</h1>
+
+<div id="outline-container-org94d0a9d" class="outline-2">
+<h2 id="org94d0a9d">Well that was easy</h2>
+<div class="outline-text-2" id="text-org94d0a9d">
+<p>
+All it really took was a quick duck and boom, there's the <a href="https://www.emacswiki.org/emacs/InsertingTodaysDate">answer</a>!
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">date</span> (arg)
+  (<span style="color: #ffff0b;">interactive</span> <span style="color: #ff7fff;">"P"</span>)
+  (insert (<span style="color: #ffff0b;">if</span> arg
+              (format-time-string <span style="color: #ff7fff;">"%d.%m.%Y"</span>)
+            (format-time-string <span style="color: #ff7fff;">"%Y-%m-%d"</span>))))
+
+(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">timestamp</span> ()
+  (<span style="color: #ffff0b;">interactive</span>)
+  (insert (format-time-string <span style="color: #ff7fff;">"%Y-%m-%dT%H:%M:%S"</span>)))
+
+(global-set-key (kbd <span style="color: #ff7fff;">"C-x M-d"</span>) #'date)
+(global-set-key (kbd <span style="color: #ff7fff;">"C-x M-t"</span>) #'timestamp)
+
+</pre>
+</div>
+
+<p>
+A little underwhelming if I'm honest, I was hoping for a fun destraction but was left with a little frustration around having to type the keys <b>"C-x M-d"</b> for the binding. I realized what I really want is a way to just insert the correct code because it is so reptative.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1c9bc30" class="outline-2">
+<h2 id="org1c9bc30">how to get the key</h2>
+<div class="outline-text-2" id="text-org1c9bc30">
+<p>
+I want a way to prompt me for the key, and then insert that into the buffer with the code wrapped around it. Lucky for me I already have the first part <a href="20240130T014933--temporarily-rebind-a-key-in-emacs__emacs_lisp.html">solved</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">get-chord</span> ()
+  <span style="color: #fd95fa;">"Get the key chord from user."</span>
+  (<span style="color: #ffff0b;">interactive</span>)
+  (<span style="color: #ffff0b;">setq</span> keys (read-key-sequence <span style="color: #ff7fff;">"Enter the key sequence to bind: "</span>))
+  (insert (format <span style="color: #ff7fff;">"(global-set-key (kbd \"%s\") )"</span> (key-description keys))))
+</pre>
+</div>
+
+<p>
+This gives me a quick way to insert a hunk of code that I find myself typing over and over. But I still gotta type the function:
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">get-chord</span> ()
+  <span style="color: #fd95fa;">"Get the key chord from user."</span>
+  (<span style="color: #ffff0b;">interactive</span>)
+  (<span style="color: #ffff0b;">setq</span> keys (read-key-sequence <span style="color: #ff7fff;">"Enter the key sequence to bind: "</span>))
+  (<span style="color: #ffff0b;">setq</span> cmd (read-command <span style="color: #ff7fff;">"Enter the command to bind to the key: "</span>))
+  (insert (format <span style="color: #ff7fff;">"(global-set-key (kbd \"%s\") #</span><span style="color: #06ffff; font-weight: bold;">\</span><span style="color: #ff7fff;">'%s)"</span> (key-description keys) cmd)))
+</pre>
+</div>
+
+<p>
+Now I can just use my new function to insert a binding for this function into my init:
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">(get-chord)
+(global-set-key (kbd <span style="color: #ff7fff;">"C-c k"</span>) #'get-chord)
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org2187912" class="outline-3">
+<h3 id="org2187912">errors and omissions</h3>
+<div class="outline-text-3" id="text-org2187912">
+<p>
+This little gadget works fine if I just rely on <a href="https://www.gnu.org/software/emacs/">GNU Emacs</a> builtin completion but I could still type an incorrect function and that would cause me pain down the road. So I better add some error correction, and clean it up so it is a little more readable.
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">get-chord</span> ()
+  <span style="color: #fd95fa;">"Prompt the user for a key sequence and a command, then insert a global-set-key form."</span>
+  (<span style="color: #ffff0b;">interactive</span>)
+  (<span style="color: #ffff0b;">let</span> ((keys (read-key-sequence <span style="color: #ff7fff;">"Enter the key sequence to bind: "</span>))
+        (cmd (read-command <span style="color: #ff7fff;">"Enter the command to bind to the key: "</span>)))
+    (<span style="color: #ffff0b;">unless</span> (commandp cmd)
+      (<span style="color: #06ffff; font-weight: bold;">error</span> <span style="color: #ff7fff;">"%s is not a valid command"</span> cmd))
+    (insert (format <span style="color: #ff7fff;">"(global-set-key (kbd \"%s\") #</span><span style="color: #06ffff; font-weight: bold;">\</span><span style="color: #ff7fff;">'%s)"</span>
+                    (key-description keys) cmd))))
+</pre>
+</div>
+
+<p>
+Now that works, but what if the key is already bound? I don't want to just clobber the current key binding&#x2026;unless I do. So I need to check to see if the key is already occupied and then give myself a way to do something potentially stupid.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb19208c" class="outline-3">
+<h3 id="orgb19208c">the finished product</h3>
+<div class="outline-text-3" id="text-orgb19208c">
+<p>
+While it has very little to do with inserting dates into a buffer one problem with an easy solution lead me to a handy bit of reusable automation.
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">  (<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">get-chord</span> ()
+  <span style="color: #fd95fa;">"Prompt the user for a key sequence and a command, and then insert a global-set-key form.</span>
+<span style="color: #fd95fa;">If the key is already bound and no universal argument is given, an error is raised."</span>
+  (<span style="color: #ffff0b;">interactive</span>)
+  (<span style="color: #ffff0b;">let</span> ((keys (read-key-sequence <span style="color: #ff7fff;">"Enter the key sequence to bind: "</span>))
+        (cmd (read-command <span style="color: #ff7fff;">"Enter the command to bind to the key: "</span>)))
+    <span style="color: #767283;">;; </span><span style="color: #767283; font-style: italic;">Check if the command is valid</span>
+    (<span style="color: #ffff0b;">unless</span> (commandp cmd)
+      (<span style="color: #06ffff; font-weight: bold;">error</span> <span style="color: #ff7fff;">"%s is not a valid command"</span> cmd))
+    <span style="color: #767283;">;; </span><span style="color: #767283; font-style: italic;">Check if the key is already bound, proceed only if universal argument is given</span>
+    (<span style="color: #ffff0b;">when</span> (<span style="color: #ffff0b;">and</span> (not current-prefix-arg)
+               (key-binding (kbd (key-description keys))))
+      (<span style="color: #06ffff; font-weight: bold;">error</span> <span style="color: #ff7fff;">"Key %s is already bound. Use a universal argument to override."</span>
+             (key-description keys)))
+    (insert (format <span style="color: #ff7fff;">"(global-set-key (kbd \"%s\") #'%%s)"</span>
+                    (key-description keys) cmd))))
+</pre>
+</div>
+
+<p>
+So now I can bind this function to an unused key, or just call it from the <code>execute-extended-command</code> and get my snippet inserted right where I want it all while feeling secure that I didn't blindly screw up something already in use.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2024-01-30 Tue 08:42</p>
+<p class="author">Author: Leslie S Russell</p>
+<p class="date">Created: 2024-01-31 Wed 15:44</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
