@@ -1,83 +1,163 @@
-/* General Body Styling */
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
-  color: #ddd; /* Lighter text for dark background */
-  background-color: #222; /* Dark background */
+  color: #ddd;
+  background-color: #222;
   padding: 20px;
 }
-
-#content {
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+}
+body #content {
   max-width: 60em;
   margin: auto;
-  background: #333; /* Darker shade for content background */
+  background: #333;
   padding: 20px;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1); /* Shadow adjusted for dark theme */
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+body #content a {
+  color: #f0ad4e;
+  text-decoration: none;
+}
+body #content a:hover {
+  text-decoration: underline;
+}
+body #content a:focus, body #content a:active {
+  outline: none;
+  border: none;
+}
+body #footnotes {
+  font-size: 0.8em;
+  color: #555;
+  margin-top: 20px;
+}
+body #footnotes .footdef {
+  margin-bottom: 10px;
+}
+body #footnotes .footnum {
+  font-weight: bold;
+}
+body #footnotes .footpara {
+  color: #666;
+  text-indent: -10px;
+  margin-left: 20px;
 }
 
-/* Headings */
 h1.title, h2 {
-  color: #4fc3f7; /* Lighter shade for headings, similar to Bootstrap info color */
+  color: #4fc3f7;
+  text-align: center;
 }
 
-/* Text and Paragraphs */
 p {
   margin-bottom: 1em;
 }
 
-/* Lists */
 ul.org-ul {
   padding-left: 20px;
 }
 
-/* Code Blocks */
 pre.src {
-  background-color: #2b2b2b; /* Dark background for code blocks */
-  border: 1px solid #444; /* Dark border for code blocks */
+  background-color: #2b2b2b;
+  border: 1px solid #444;
   padding: 10px;
   overflow-x: auto;
 }
 
-/* Links */
-a {
-  color: #f0ad4e; /* Lighter color for links, similar to Bootstrap warning color */
-  text-decoration: none;
+blockquote {
+  background-color: #303030;
+  border-left: 5px solid #346392;
+  color: #ddd;
+  font-family: Georgia, serif;
+  font-style: italic;
+  padding: 20px;
+  margin: 20px 0;
+}
+blockquote cite {
+  display: block;
+  font-style: normal;
+  color: white;
+  text-align: right;
+  font-size: 0.9em;
 }
 
-a:hover {
-  text-decoration: underline;
-}
-
-/* Tables */
 table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 1em;
 }
-
-th, td {
-  border: 0px solid transparent;
+table th, table td {
+  border: 0;
   padding: 8px;
   text-align: left;
 }
-
-th {
-  background-color: #3c3c3c; /* Darker background for table headers */
+table th:first-child th, table td:first-child th {
+  background-color: #3c3c3c;
 }
 
-/* Images */
-.figure img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-}
-
-/* Footer */
 #postamble {
   font-size: 0.8em;
   text-align: center;
   margin-top: 40px;
-  color: #aaa; /* Lighter text color for footer */
+  color: #aaa;
 }
+
+.todo, .done, .priority, .tag {
+  font-family: monospace;
+  color: red;
+}
+
+.done {
+  color: green;
+}
+
+.priority {
+  color: orange;
+}
+
+.tag {
+  background-color: #eee;
+  padding: 2px;
+  font-weight: normal;
+}
+
+.timestamp {
+  color: #bebebe;
+}
+
+.timestamp-kwd {
+  color: #5f9ea0;
+}
+
+.org-right, .org-left, .org-center {
+  text-align: right;
+}
+
+.org-left {
+  text-align: left;
+}
+
+.org-center {
+  text-align: center;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+p.verse {
+  margin-left: 3%;
+}
+
+a:focus {
+  outline: 3px solid #aaa;
+}
+
+.org-right {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+/*# sourceMappingURL=site.css.map */
