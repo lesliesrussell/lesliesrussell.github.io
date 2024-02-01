@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2024-01-31 Wed 20:01 -->
+<!-- 2024-01-31 Wed 20:04 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>clean up a messy git log</title>
@@ -21,13 +21,13 @@ The situation, I am okay with losing the commit history but want to make the cur
 Investigate a method known as "squashing" all commits into a single initial commit.
 </p>
 
-<div id="outline-container-orge033809" class="outline-2">
-<h2 id="orge033809">The hard way</h2>
-<div class="outline-text-2" id="text-orge033809">
+<div id="outline-container-orge8f0f51" class="outline-2">
+<h2 id="orge8f0f51">The hard way</h2>
+<div class="outline-text-2" id="text-orge8f0f51">
 </div>
-<div id="outline-container-orgb9b0ed2" class="outline-4">
-<h4 id="orgb9b0ed2">Create a New Branch:</h4>
-<div class="outline-text-4" id="text-orgb9b0ed2">
+<div id="outline-container-org7810c18" class="outline-4">
+<h4 id="org7810c18">Create a New Branch:</h4>
+<div class="outline-text-4" id="text-org7810c18">
 <p>
 This step is optional, but it's a good practice to do this in a new branch to ensure that you're not losing data if something goes wrong.
 </p>
@@ -39,9 +39,9 @@ This step is optional, but it's a good practice to do this in a new branch to en
 </div>
 </div>
 
-<div id="outline-container-org95a4d41" class="outline-4">
-<h4 id="org95a4d41">Reset to the First Commit:</h4>
-<div class="outline-text-4" id="text-org95a4d41">
+<div id="outline-container-org769c76f" class="outline-4">
+<h4 id="org769c76f">Reset to the First Commit:</h4>
+<div class="outline-text-4" id="text-org769c76f">
 <p>
 Find the hash of the first commit in your repository and reset the current HEAD to it. The `&#x2013;soft` flag ensures that the changes in all the commits remain in the working directory.
 </p>
@@ -53,9 +53,9 @@ Find the hash of the first commit in your repository and reset the current HEAD 
 </div>
 </div>
 
-<div id="outline-container-orgc37ff0f" class="outline-4">
-<h4 id="orgc37ff0f">Commit the Current State as a New Initial Commit:</h4>
-<div class="outline-text-4" id="text-orgc37ff0f">
+<div id="outline-container-org45f365d" class="outline-4">
+<h4 id="org45f365d">Commit the Current State as a New Initial Commit:</h4>
+<div class="outline-text-4" id="text-org45f365d">
 <p>
 Now, you can commit all the changes that are in your working directory. This will effectively condense all your changes into a single new initial commit.
 </p>
@@ -67,9 +67,9 @@ Now, you can commit all the changes that are in your working directory. This wil
 </div>
 </div>
 
-<div id="outline-container-org9e6d291" class="outline-4">
-<h4 id="org9e6d291">Force Push to Remote (if applicable):</h4>
-<div class="outline-text-4" id="text-org9e6d291">
+<div id="outline-container-org4b14e9d" class="outline-4">
+<h4 id="org4b14e9d">Force Push to Remote (if applicable):</h4>
+<div class="outline-text-4" id="text-org4b14e9d">
 <p>
 If you're working with a remote repository and you're okay with rewriting its history (make sure your team is aware if it's a collaborative project), you can force push your changes.
 </p>
@@ -90,7 +90,7 @@ Remember, this process will rewrite history, which can be disruptive in a collab
 <div id="postamble" class="status">
 <p class="date">Date: 2024-01-31 Wed 15:00</p>
 <p class="author">Author: Leslie S Russell</p>
-<p class="date">Created: 2024-01-31 Wed 20:01</p>
+<p class="date">Created: 2024-01-31 Wed 20:04</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
