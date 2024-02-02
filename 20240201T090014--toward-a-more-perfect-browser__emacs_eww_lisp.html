@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-02-01 Thu 23:10 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>toward a more perfect browser</title>
+<meta name="author" content="Leslie S Russell" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet"
+		href="./assets/site.css" type="text/css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">toward a more perfect browser</h1>
+
+<div id="outline-container-org7bc4cac" class="outline-2">
+<h2 id="org7bc4cac">the smol web</h2>
+<div class="outline-text-2" id="text-org7bc4cac">
+<p>
+When I browse the internet, I want it to be like reading a book. I really don't want a bunch of blinking and moving and crap floating hither and yon. I just want text and some images. I spend so much time in <a href="https://www.gnu.org/software/emacs/">GNU Emacs</a> that if the page doesn't render in <a href="https://www.gnu.org/software/emacs/manual/html_mono/eww.html">eww</a> I can't take it seriously. I hate having to open a browser just to get a bit of information. Mostly, I skip sites that don't render in eww. I am really that lazy. So lazy that I get fatigue from switching to another application just to wade through all the blinking bullshit.
+</p>
+
+
+<div id="org80ac2c6" class="figure">
+<p><img src="images/bad-example.png" alt="bad-example.png" />
+</p>
+</div>
+
+<p>
+This is the reason I don't use <a href="https://melpa.org/#/">Melpa.org</a> I tend to stick with <a href="https://elpa.gnu.org">Elpa</a>. It is a site dedicated to packages for <a href="https://www.gnu.org/software/emacs/">GNU Emacs</a> and I can't access it with <code>eww</code> &#x2026; I mean what is that all about? There are exceptions as always, you have to use github, you need email, you want to watch movies, etc., but for most there are acceptable work arounds and I try to avoid these as much as I can.
+</p>
+</div>
+
+<div id="outline-container-org616c788" class="outline-3">
+<h3 id="org616c788">select a site</h3>
+<div class="outline-text-3" id="text-org616c788">
+<p>
+I have a fistful of little tweaks I have saved for making eww do what I want. One of the things I want is to be able to switch back and forth between search engines. Sometimes I just want to Google, an answer&#x2026; any answer, but sometimes I know what kind of answer I need and the site that might best provide it. Why not get it from the horse?
+</p>
+</div>
+<div id="outline-container-orga509abd" class="outline-4">
+<h4 id="orga509abd">explanation:</h4>
+<div class="outline-text-4" id="text-orga509abd">
+<ul class="org-ul">
+<li><b><b>`defcustom`</b></b>: This creates a customizable variable `eww-search-engine-list`. Emacs users can customize this variable through the `customize` interface, adding or removing search engines as they wish.</li>
+<li><b><b>List of Cons Cells</b></b>: Each search engine is represented as a cons cell, with the car (first element) being the search engine's name (a string) and the cdr (second element) being the search engine's URL prefix (also a string).</li>
+<li><b><b>`:type` and `:group`</b></b>: These keywords specify the type of the variable (an association list where both keys and values are strings) and the customization group it belongs to, respectively. Here, it's grouped under 'eww' for relevance, but you can choose a different group or create a new one if you're organizing custom settings for a specific setup.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org5da08f9" class="outline-4">
+<h4 id="org5da08f9">using this variable:</h4>
+<div class="outline-text-4" id="text-org5da08f9">
+<p>
+To use `eww-search-engine-list` in conjunction with the `set-eww-prefix` function you want to create, you can modify `set-eww-prefix` to let the user select a search engine by name, and then automatically set the `eww-search-prefix` based on their selection. Here's an adjusted version of `set-eww-prefix` to use `eww-search-engine-list`:
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9706052" class="outline-4">
+<h4 id="org9706052">how the eww-select-prefix function works:</h4>
+<div class="outline-text-4" id="text-org9706052">
+<ul class="org-ul">
+<li>It first creates a list of engine names from `eww-search-engine-list` using `mapcar` to extract the `car` of each cons cell.</li>
+<li>It then prompts the user to select an engine name using `completing-read`, which provides completion for available search engines.</li>
+<li>Once the user selects a name, it finds the corresponding URL prefix using `assoc` to look up the name in `eww-search-engine-list`.</li>
+<li>Finally, it sets `eww-search-prefix` to the selected URL prefix and informs the user with a message.</li>
+</ul>
+
+<p>
+This approach gives you a flexible and user-friendly way to switch between search engines in "eww", aligning with the customizability ethos of Emacs.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #ffff0b;">defcustom</span> <span style="color: #4ac964;">eww-search-engine-list</span>
+  '((<span style="color: #ff7fff;">"Google"</span> . <span style="color: #ff7fff;">"https://www.google.com/search?q="</span>)
+    (<span style="color: #ff7fff;">"DuckDuckGo"</span> . <span style="color: #ff7fff;">"https://duckduckgo.com/?q="</span>)
+    (<span style="color: #ff7fff;">"Wikipedia"</span> . <span style="color: #ff7fff;">"https://en.wikipedia.org/wiki/Special:Search?search="</span>)
+    (<span style="color: #ff7fff;">"Stack Overflow"</span> . <span style="color: #ff7fff;">"https://stackoverflow.com/search?q="</span>))
+  <span style="color: #fd95fa;">"A list of search engine names and their URL prefixes."</span>
+  <span style="color: #ff9029;">:type</span> '(alist <span style="color: #ff9029;">:key-type</span> string <span style="color: #ff9029;">:value-type</span> string)
+  <span style="color: #ff9029;">:group</span> 'eww)
+
+(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">eww-set-eww-prefix</span> (search-prefix)
+  <span style="color: #fd95fa;">"Set EWW's search engine prefix to SEARCH-PREFIX."</span>
+  (<span style="color: #ffff0b;">interactive</span> <span style="color: #ff7fff;">"sEnter search engine prefix: "</span>)
+  (<span style="color: #ffff0b;">setq</span> eww-search-prefix search-prefix)
+  (message <span style="color: #ff7fff;">"EWW search prefix set to: %s"</span> search-prefix))
+
+(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">eww-select-eww-prefix</span> ()
+  <span style="color: #fd95fa;">"Set EWW's search engine prefix by selecting from a predefined list."</span>
+  (<span style="color: #ffff0b;">interactive</span>)
+  (<span style="color: #ffff0b;">let*</span> ((engine-names (mapcar 'car eww-search-engine-list))
+         (selected-name (completing-read <span style="color: #ff7fff;">"Choose search engine: "</span> engine-names))
+         (selected-prefix (cdr (assoc selected-name eww-search-engine-list))))
+    (<span style="color: #ffff0b;">setq</span> eww-search-prefix selected-prefix)
+    (message <span style="color: #ff7fff;">"EWW search prefix set to: %s"</span> selected-prefix)))
+
+(global-set-key (kbd <span style="color: #ff7fff;">"C-c e"</span>) #'eww-select-eww-prefix)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org007b147" class="outline-2">
+<h2 id="org007b147">nothing special</h2>
+<div class="outline-text-2" id="text-org007b147">
+<p>
+But that is the great thing about <a href="https://www.gnu.org/software/emacs/">GNU Emacs</a>, a few nothing specials strapped together make your life much more enjoyable. You can make it as complex or as simple as you like.
+</p>
+</div>
+
+<div id="outline-container-orgd959992" class="outline-4">
+<h4 id="orgd959992">some further tweaks</h4>
+<div class="outline-text-4" id="text-orgd959992">
+<p>
+As I said this is nothing special even tho I use it daily. But there are a few things I want to add:
+</p>
+<ul class="org-ul">
+<li class="on"><code>[X]</code> this should be an <code>eww</code> entry point</li>
+<li class="off"><code>[&#xa0;]</code> should really validate the url</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">eww-select-eww-prefix</span> ()
+    <span style="color: #fd95fa;">"Set EWW's search engine prefix by selecting from a predefined list."</span>
+    (<span style="color: #ffff0b;">interactive</span>)
+    (<span style="color: #ffff0b;">let*</span> ((engine-names (mapcar 'car eww-search-engine-list))
+           (selected-name (completing-read <span style="color: #ff7fff;">"Choose search engine: "</span> engine-names))
+           (selected-prefix (cdr (assoc selected-name eww-search-engine-list))))
+      (<span style="color: #ffff0b;">setq</span> eww-search-prefix selected-prefix)
+      (eww (read-regexp (format <span style="color: #ff7fff;">"%s"</span> eww-search-prefix) '()))))
+
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2024-02-01 Thu 09:00</p>
+<p class="author">Author: Leslie S Russell</p>
+<p class="date">Created: 2024-02-01 Thu 23:10</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

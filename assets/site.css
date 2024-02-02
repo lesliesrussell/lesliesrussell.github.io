@@ -10,6 +10,10 @@ body {
     padding: 10px;
   }
 }
+body .responsive-image {
+  max-width: 100%;
+  height: auto;
+}
 body #content {
   max-width: 60em;
   margin: auto;

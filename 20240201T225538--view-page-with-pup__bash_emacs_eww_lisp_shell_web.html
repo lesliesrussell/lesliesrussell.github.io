@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-02-01 Thu 23:10 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>view page with pup</title>
+<meta name="author" content="Leslie S Russell" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet"
+		href="./assets/site.css" type="text/css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">view page with pup</h1>
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">eww-view-page-with-pup</span> ()
+  (<span style="color: #ffff0b;">interactive</span>)
+  (<span style="color: #ffff0b;">let</span> ((url (eww-current-url)))
+    (<span style="color: #ffff0b;">unless</span> url
+      (<span style="color: #06ffff; font-weight: bold;">error</span> <span style="color: #ff7fff;">"No URL to process"</span>))
+    (<span style="color: #ffff0b;">let</span> ((temp-file (make-temp-file <span style="color: #ff7fff;">"eww-pup-"</span> nil <span style="color: #ff7fff;">".html"</span>)))
+      (<span style="color: #ffff0b;">with-temp-buffer</span>
+        (shell-command (format <span style="color: #ff7fff;">"/home/lsr/.local/bin/readable '</span><span style="color: #34c8d8;">%s</span><span style="color: #ff7fff;">'"</span> url) t)
+        (write-region (point-min) (point-max) temp-file))
+      (eww-open-file temp-file))))
+
+(<span style="color: #ffff0b;">with-eval-after-load</span> 'eww
+   <span style="color: #767283;">;; </span><span style="color: #767283; font-style: italic;">This ensures `eww-mode-map` is defined</span>
+   (define-key eww-mode-map (kbd <span style="color: #ff7fff;">"C-c e"</span>) 'eww-view-page-with-pup))
+</pre>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2024-02-01 Thu 22:55</p>
+<p class="author">Author: Leslie S Russell</p>
+<p class="date">Created: 2024-02-01 Thu 23:10</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

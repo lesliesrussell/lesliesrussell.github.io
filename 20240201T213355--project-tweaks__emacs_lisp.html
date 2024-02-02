@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-02-01 Thu 23:10 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>project tweaks</title>
+<meta name="author" content="Leslie S Russell" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet"
+		href="./assets/site.css" type="text/css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">project tweaks</h1>
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #767283;">;;; </span><span style="color: #767283; font-style: italic;">-*- lexical-binding: t; -*-</span>
+
+(<span style="color: #ffff0b;">setq</span> project-switch-commands
+      '((project-find-file <span style="color: #ff7fff;">"Find file"</span>)
+        (project-find-regexp <span style="color: #ff7fff;">"Find regexp"</span>)
+        (project-find-dir <span style="color: #ff7fff;">"Find directory"</span>)
+        (project-vc-dir <span style="color: #ff7fff;">"VC-Dir"</span>)
+        (project-dired <span style="color: #ff7fff;">"Dired"</span>)
+        (project-eshell <span style="color: #ff7fff;">"Eshell"</span>)))
+
+(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">g-project-lgrep</span> ()
+  <span style="color: #fd95fa;">"Search in the current project using lgrep."</span>
+  (<span style="color: #ffff0b;">interactive</span>)
+  (<span style="color: #ffff0b;">let</span> ((project-root default-directory)
+        (search-term (read-string <span style="color: #ff7fff;">"Search for: "</span>)))
+    (lgrep search-term <span style="color: #ff7fff;">"*.*"</span> project-root)))
+
+(<span style="color: #ffff0b;">use-package</span> <span style="color: #34c8d8;">project</span>
+  <span style="color: #ff9029;">:bind</span> (<span style="color: #ff9029;">:map</span> project-prefix-map
+              (<span style="color: #ff7fff;">"s"</span> . 'g-project-lgrep)))
+
+(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">g-eshell</span> ()
+  <span style="color: #fd95fa;">"Start eshell at the root of the current project, or in the</span>
+<span style="color: #fd95fa;">current directory if the current buffer is not part of a</span>
+<span style="color: #fd95fa;">project."</span>
+  (<span style="color: #ffff0b;">interactive</span>)
+  (<span style="color: #ffff0b;">if</span> (project-current)
+      (project-eshell)
+    (eshell)))
+
+(global-set-key (kbd <span style="color: #ff7fff;">"C-x s"</span>) 'g-eshell)
+</pre>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2024-02-01 Thu 21:33</p>
+<p class="author">Author: Leslie S Russell</p>
+<p class="date">Created: 2024-02-01 Thu 23:10</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
