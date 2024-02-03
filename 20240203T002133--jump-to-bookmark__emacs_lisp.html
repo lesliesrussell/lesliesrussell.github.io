@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-02-03 Sat 08:19 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>jump to bookmark</title>
+<meta name="author" content="Leslie S Russell" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet"
+		href="./assets/site.css" type="text/css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">jump to bookmark</h1>
+
+<div id="outline-container-org018b8e4" class="outline-2">
+<h2 id="org018b8e4">jump</h2>
+<div class="outline-text-2" id="text-org018b8e4">
+<p>
+By utilizing Emacs's built-in bookmarks to present a list in a completion buffer and allowing the user to select one to travel to, you can leverage Emacs's powerful extensibility. Below is an Emacs Lisp (Elisp) script that accomplishes this. The script uses the `bookmark` library, which is part of Emacs, to access the list of bookmarks. It then utilizes `completing-read` to present these in a completion buffer, where the user can choose one. Upon selection, the script will navigate to the chosen bookmark.
+</p>
+
+<ol class="org-ol">
+<li><b><b>Function Definition (`visit-bookmark`)</b></b>: Defines a function `visit-bookmark` that does not take any arguments. It is marked as interactive so you can call it with `M-x visit-bookbook` or bind it to a key combination.</li>
+
+<li><b><b>Require Bookmark Library</b></b>: Ensures that the `bookmark` library is loaded. This library provides the functionality to manipulate and navigate bookmarks.</li>
+
+<li><b><b>Load Bookmark File</b></b>: Calls `bookmark-maybe-load-default-file` to load the list of bookmarks from the default bookmark file, if it hasn't been loaded already.</li>
+
+<li><b><b>Choose Bookmark</b></b>: Uses `completing-read` to present the user with a completion buffer that lists all bookmark names. The user can then select one of these.</li>
+
+<li><b><b>Navigate to Bookmark</b></b>: Once the user selects a bookmark, the `bookmark-jump` function is used to navigate to the selected bookmark.</li>
+
+<li><b><b>Key Binding</b></b>: Optionally, the last line binds the `visit-bookmark` function to the key combination `C-c b` (Control-c followed by b). You can change this to any key combination you prefer.</li>
+</ol>
+
+<p>
+To use this script, simply add it to your Emacs configuration file (usually `~/.emacs` or `~/.emacs.d/init.el`) and restart Emacs or evaluate the buffer. Now, you can press `C-c b` to invoke the `visit-bookbook` function, which will let you select and jump to a bookmark.
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">jump-to-bookmark</span> ()
+<span style="color: #fd95fa;">"Present a list of bookmarks in a completion buffer. Allows the user to select one to travel to."</span>
+(<span style="color: #ffff0b;">interactive</span>)
+(<span style="color: #ffff0b;">require</span> '<span style="color: #34c8d8;">bookmark</span>) <span style="color: #767283;">; </span><span style="color: #767283; font-style: italic;">Ensure the bookmark library is loaded</span>
+(bookmark-maybe-load-default-file) <span style="color: #767283;">; </span><span style="color: #767283; font-style: italic;">Load the bookmark file if not already loaded</span>
+(<span style="color: #ffff0b;">let</span> ((bookmark (completing-read <span style="color: #ff7fff;">"Choose bookmark: "</span> (bookmark-all-names))))
+(<span style="color: #ffff0b;">when</span> bookmark
+(bookmark-jump bookmark))))
+
+(global-set-key (kbd <span style="color: #ff7fff;">"C-c b"</span>) 'jump-to-bookmark)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2024-02-03 Sat 00:21</p>
+<p class="author">Author: Leslie S Russell</p>
+<p class="date">Created: 2024-02-03 Sat 08:19</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

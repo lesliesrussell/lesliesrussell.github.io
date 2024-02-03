@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-02-03 Sat 08:19 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>harpoon for emacs</title>
+<meta name="author" content="Leslie S Russell" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet"
+		href="./assets/site.css" type="text/css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">harpoon for emacs</h1>
+
+<div id="org1375fb0" class="figure">
+<p><img src="images/hfe.webp" alt="hfe.webp" />
+</p>
+</div>
+
+<div id="outline-container-org07c66ee" class="outline-2">
+<h2 id="org07c66ee">harpoon is cool</h2>
+<div class="outline-text-2" id="text-org07c66ee">
+<p>
+If you don't know what <a href="https://github.com/ThePrimeagen/harpoon/tree/harpoon2">Harpoon2</a> is you can read about it there. I don't know about you, looks pretty handy to me. I tried a couple of diffrent ideas (one pretty close called froggy) and a bunch of frustrating others, but each failed for one reason or another and proved a dead end. Until I remembered my rules for <a href="https://www.gnu.org/software/emacs/">GNU Emacs</a>
+</p>
+<ul class="org-ul">
+<li>expand don't replace</li>
+</ul>
+
+<p>
+Emacs can pretty much do everything already, maybe not in the order I want, or through the interface I expect. So I can just change it.
+</p>
+
+<p>
+I don't use bookmarks. Like I do but&#x2026; it really just turns into a list of things i never use because "C-x r l" is a bastard, and so are the other bookmark commands. Yes I could rebind, but I still have to popup a buffer, next line to the one I want and hit return. Why are bookmarks not a completion item?
+</p>
+
+<p>
+So, thats what I did. I can hit "C-c b" to get a completion buffer (I use <a href="https://github.com/protesilaos/mct">Minibuffer Confines Transcended (mct.el)</a> because it is fantastic!) from there I get a sort of regexp<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup> capable narrowing experience that keeps me moving.
+</p>
+</div>
+
+<div id="outline-container-orgb773e5d" class="outline-4">
+<h4 id="orgb773e5d">my habits</h4>
+<div class="outline-text-4" id="text-orgb773e5d">
+<p>
+I try now to keep a clean bookmark file such that I only keep items in the list that I am currently working on. But the bookmarks file gives some advantages over any other solution I tried to come up with: it is persistent, it has a ui that I didn't have to slave over, i can edit the bookmarks.
+</p>
+
+<p>
+<a href="https://github.com/ThePrimeagen/harpoon/tree/harpoon2">Harpoon2</a> wants you to keep a few files around, if you do that you can just press "M-3 C-c b" to jump right to the third bookmark or the 21st for that matter. I think that beats <a href="https://github.com/ThePrimeagen/harpoon/tree/harpoon2">Harpoon2</a> already.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #ffff0b;">require</span> '<span style="color: #34c8d8;">bookmark</span>)
+(<span style="color: #ffff0b;">require</span> '<span style="color: #34c8d8;">cl-lib</span>) <span style="color: #767283;">; </span><span style="color: #767283; font-style: italic;">Ensure Common Lisp compatibility functions are available</span>
+
+(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">jump-to-bookmark-by-number</span> (number)
+  <span style="color: #fd95fa;">"Jump to a bookmark based on a numeric identifier."</span>
+  <span style="color: #767283;">;; </span><span style="color: #767283; font-style: italic;">(interactive "nEnter bookmark number: ") ; Prompt for a number</span>
+  (<span style="color: #ffff0b;">interactive</span> <span style="color: #ff7fff;">"P"</span>)
+
+  (bookmark-maybe-load-default-file) <span style="color: #767283;">; </span><span style="color: #767283; font-style: italic;">Load the bookmark file</span>
+  (<span style="color: #ffff0b;">let*</span> ((bookmarks (bookmark-all-names))
+         (indexed-bookmarks (cl-pairlis (number-sequence 1 (length bookmarks)) bookmarks))
+         (bookmark-name (cdr (assoc number indexed-bookmarks))))
+    (<span style="color: #ffff0b;">if</span> bookmark-name
+        (bookmark-jump bookmark-name)
+      (message <span style="color: #ff7fff;">"Invalid bookmark number: %s"</span> number))))
+
+(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">interactive-jump-to-bookmark</span> (arg)
+  <span style="color: #fd95fa;">"Interactively jump to a bookmark with or without the universal argument.</span>
+<span style="color: #fd95fa;">With a universal argument, prompts for a numeric identifier first.</span>
+<span style="color: #fd95fa;">Without a universal argument, presents a list of bookmarks to select from."</span>
+  (<span style="color: #ffff0b;">interactive</span> <span style="color: #ff7fff;">"P"</span>)
+  (<span style="color: #ffff0b;">if</span> arg
+      (call-interactively 'jump-to-bookmark-by-number) <span style="color: #767283;">; </span><span style="color: #767283; font-style: italic;">Universal argument provided</span>
+    (<span style="color: #ffff0b;">let</span> ((bookmark (completing-read <span style="color: #ff7fff;">"Choose bookmark: "</span> (bookmark-all-names)))) <span style="color: #767283;">; </span><span style="color: #767283; font-style: italic;">No universal argument</span>
+      (bookmark-jump bookmark))))
+
+(global-set-key (kbd <span style="color: #ff7fff;">"C-c b"</span>) 'interactive-jump-to-bookmark)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2254da3" class="outline-3">
+<h3 id="org2254da3">but &#x2026;</h3>
+<div class="outline-text-3" id="text-org2254da3">
+<p>
+I thought you know what, registers are cool I shoulda just used registers. But they don't persist. So I added this little doodad that adds a bookmark any time I save a point to a register. Well, I say they persist but what I mean is they stick around in the file. I am sure there is a way to stitch something together to make that happen.
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">my/point-to-register-add-bookmark</span> (register <span style="color: #9fcb66;">&amp;optional</span> delete)
+  <span style="color: #fd95fa;">"Advice to add a bookmark after calling `</span><span style="color: #34c8d8;">point-to-register</span><span style="color: #fd95fa;">'."</span>
+  (<span style="color: #ffff0b;">let</span> ((bookmark-name (format <span style="color: #ff7fff;">"Reg-%s: %s, %d"</span> register (buffer-name) (line-number-at-pos))))
+    (bookmark-set bookmark-name)))
+
+(advice-add 'point-to-register <span style="color: #ff9029;">:after</span> #'my/point-to-register-add-bookmark)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2e73318" class="outline-2">
+<h2 id="org2e73318">todo</h2>
+<div class="outline-text-2" id="text-org2e73318">
+<p>
+Some things I want to add:
+</p>
+<ul class="org-ul">
+<li>tighter integration with registers (e. g. I'd like to load registers from the bookmarks)
+so that registers are populated by the bookmarks.</li>
+<li>when I change a register I need to delete the previous link in bookmarks. Doing this manually now</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org3012409" class="outline-2">
+<h2 id="org3012409">Notes:</h2>
+<div class="outline-text-2" id="text-org3012409">
+<p>
+I continually feel pity for people who don't use <a href="https://www.gnu.org/software/emacs/">GNU Emacs</a>.
+</p>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+mct accepts all of the wildcard characters I've tried but beyond that I am not sure.
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<p class="date">Date: 2024-02-03 Sat 01:28</p>
+<p class="author">Author: Leslie S Russell</p>
+<p class="date">Created: 2024-02-03 Sat 08:19</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-02-03 Sat 08:19 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>bookmark jump</title>
+<meta name="author" content="Leslie S Russell" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet"
+		href="./assets/site.css" type="text/css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">bookmark jump</h1>
+
+
+<div id="outline-container-org2d87dc8" class="outline-2">
+<h2 id="org2d87dc8">spearing the file I want</h2>
+<div class="outline-text-2" id="text-org2d87dc8">
+</div>
+<div id="outline-container-org3546854" class="outline-3">
+<h3 id="org3546854">Functionality Breakdown:</h3>
+<div class="outline-text-3" id="text-org3546854">
+<ul class="org-ul">
+<li><b><b>Universal Argument Handling</b></b>: The `interactive-jump-to-bookmark` function checks if the universal argument (`arg`) is provided. If it is, it directly calls `jump-to-bookmark-by-number` to prompt the user for a bookmark number.</li>
+
+<li><b><b>Prompt for Number</b></b>: The `jump-to-bookmark-by-number` function is designed to be called interactively and will prompt the user for a bookmark number when invoked, which is especially useful when called with a universal argument from `interactive-jump-to-bookmark`.</li>
+
+<li><b><b>List of Bookmarks</b></b>: If no universal argument is given, the user is presented with a list of bookmarks to choose from via `completing-read`.</li>
+
+<li><b><b>Key Binding</b></b>: The function `interactive-jump-to-bookmark` is bound to `C-c b`, making it easy to access. Pressing `C-c b` will show the bookmark list, while `C-u C-c b` will prompt for a numeric identifier to jump to a specific bookmark.</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #ffff0b;">require</span> '<span style="color: #34c8d8;">cl-lib</span>) <span style="color: #767283;">; </span><span style="color: #767283; font-style: italic;">Ensure Common Lisp compatibility functions are available</span>
+
+(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">jump-to-bookmark-by-number</span> (number)
+<span style="color: #fd95fa;">"Jump to a bookmark based on a numeric identifier."</span>
+(<span style="color: #ffff0b;">interactive</span> <span style="color: #ff7fff;">"nEnter bookmark number: "</span>) <span style="color: #767283;">; </span><span style="color: #767283; font-style: italic;">Prompt for a number</span>
+(bookmark-maybe-load-default-file) <span style="color: #767283;">; </span><span style="color: #767283; font-style: italic;">Load the bookmark file</span>
+(<span style="color: #ffff0b;">let*</span> ((bookmarks (bookmark-all-names))
+(indexed-bookmarks (cl-pairlis (number-sequence 1 (length bookmarks)) bookmarks))
+(bookmark-name (cdr (assoc number indexed-bookmarks))))
+(<span style="color: #ffff0b;">if</span> bookmark-name
+(bookmark-jump bookmark-name)
+(message <span style="color: #ff7fff;">"Invalid bookmark number: %s"</span> number))))
+
+(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">interactive-jump-to-bookmark</span> (arg)
+<span style="color: #fd95fa;">"Interactively jump to a bookmark with or without the universal argument.</span>
+<span style="color: #fd95fa;">With a universal argument, prompts for a numeric identifier first.</span>
+<span style="color: #fd95fa;">Without a universal argument, presents a list of bookmarks to select from."</span>
+(<span style="color: #ffff0b;">interactive</span> <span style="color: #ff7fff;">"P"</span>)
+(<span style="color: #ffff0b;">if</span> arg
+(call-interactively 'jump-to-bookmark-by-number) <span style="color: #767283;">; </span><span style="color: #767283; font-style: italic;">Universal argument provided</span>
+(<span style="color: #ffff0b;">let</span> ((bookmark (completing-read <span style="color: #ff7fff;">"Choose bookmark: "</span> (bookmark-all-names)))) <span style="color: #767283;">; </span><span style="color: #767283; font-style: italic;">No universal argument</span>
+(bookmark-jump bookmark))))
+
+(global-set-key (kbd <span style="color: #ff7fff;">"C-c b"</span>) 'interactive-jump-to-bookmark)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2024-02-03 Sat 00:47</p>
+<p class="author">Author: Leslie S Russell</p>
+<p class="date">Created: 2024-02-03 Sat 08:19</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

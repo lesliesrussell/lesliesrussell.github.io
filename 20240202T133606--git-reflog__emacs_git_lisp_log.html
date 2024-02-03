@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-02-03 Sat 08:19 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>git reflog</title>
+<meta name="author" content="Leslie S Russell" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet"
+		href="./assets/site.css" type="text/css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">git reflog</h1>
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #767283;">;; </span><span style="color: #767283; font-style: italic;">-*- lexical-binding: t -*-</span>
+
+(<span style="color: #ffff0b;">define-derived-mode</span> <span style="color: #ff996f;">git-reflog-mode</span> tabulated-list-mode <span style="color: #ff7fff;">"Git Reflog"</span>
+  <span style="color: #fd95fa;">"Major mode for viewing `git reflog` output."</span>
+  (<span style="color: #ffff0b;">setq</span> tabulated-list-format [(<span style="color: #ff7fff;">"Hash"</span> 15 t)
+                               (<span style="color: #ff7fff;">"Action"</span> 20 t)
+                               (<span style="color: #ff7fff;">"Message"</span> 50 t)])
+  (tabulated-list-init-header))
+
+(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">show-git-reflog</span> ()
+  (<span style="color: #ffff0b;">interactive</span>)
+  (<span style="color: #ffff0b;">let</span> ((buffer (get-buffer-create <span style="color: #ff7fff;">"*Git Reflog*"</span>)))
+    (<span style="color: #ffff0b;">with-current-buffer</span> buffer
+      (git-reflog-mode)
+      (<span style="color: #ffff0b;">setq</span> tabulated-list-entries (parse-git-reflog))
+      (tabulated-list-print t))
+    (switch-to-buffer buffer)))
+
+(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">parse-git-reflog</span> ()
+  (<span style="color: #ffff0b;">let</span> ((lines (split-string (shell-command-to-string <span style="color: #ff7fff;">"git reflog"</span>) <span style="color: #ff7fff;">"\n"</span> t))
+        entries)
+    (<span style="color: #ffff0b;">dolist</span> (line lines entries)
+      (<span style="color: #ffff0b;">when</span> (string-match <span style="color: #ff7fff;">"</span><span style="color: #ff7fff; font-weight: bold;">\\</span><span style="color: #ff7fff; font-weight: bold;">(</span><span style="color: #ff7fff;">[0-9a-f]+</span><span style="color: #ff7fff; font-weight: bold;">\\</span><span style="color: #ff7fff; font-weight: bold;">)</span><span style="color: #ff7fff;"> HEAD@{</span><span style="color: #ff7fff; font-weight: bold;">\\</span><span style="color: #ff7fff; font-weight: bold;">(</span><span style="color: #ff7fff;">[0-9]+</span><span style="color: #ff7fff; font-weight: bold;">\\</span><span style="color: #ff7fff; font-weight: bold;">)</span><span style="color: #ff7fff;">}: </span><span style="color: #ff7fff; font-weight: bold;">\\</span><span style="color: #ff7fff; font-weight: bold;">(</span><span style="color: #ff7fff;">[</span><span style="color: #ff7fff;">^</span><span style="color: #ff7fff;">:]+</span><span style="color: #ff7fff; font-weight: bold;">\\</span><span style="color: #ff7fff; font-weight: bold;">)</span><span style="color: #ff7fff;">: </span><span style="color: #ff7fff; font-weight: bold;">\\</span><span style="color: #ff7fff; font-weight: bold;">(</span><span style="color: #ff7fff;">.*</span><span style="color: #ff7fff; font-weight: bold;">\\</span><span style="color: #ff7fff; font-weight: bold;">)</span><span style="color: #ff7fff;">"</span> line)
+        (<span style="color: #ffff0b;">let</span> ((hash (propertize (match-string 1 line) 'face 'font-lock-keyword-face))
+              (action (propertize (match-string 3 line) 'face 'font-lock-function-name-face))
+              (message (propertize (match-string 4 line) 'face 'font-lock-comment-face)))
+          (<span style="color: #ffff0b;">push</span> (list hash (vector hash action message)) entries))))
+    (nreverse entries)))
+
+(global-set-key (kbd <span style="color: #ff7fff;">"C-c /"</span>) #'show-git-reflog)
+</pre>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2024-02-02 Fri 13:36</p>
+<p class="author">Author: Leslie S Russell</p>
+<p class="date">Created: 2024-02-03 Sat 08:19</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
