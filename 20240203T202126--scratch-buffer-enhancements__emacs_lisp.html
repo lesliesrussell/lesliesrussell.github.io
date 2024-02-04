@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2024-02-04 Sun 11:48 -->
+<!-- 2024-02-04 Sun 12:10 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>scratch buffer enhancements</title>
@@ -29,6 +29,10 @@ A <a href="https://www.reddit.com/r/emacs/comments/1ag5oo2/comment/kouux45/?cont
 
 <p>
 Well&#x2026;the thing is that <a href="https://www.gnu.org/software/emacs/">GNU Emacs</a> already does most of that, and what it does't do you can just make it do. So here is my extended answer to the question.
+</p>
+
+<p>
+Look, this at all coherent or ready for primetime. It was a curiosity that caught my eye. It could be made useful but it would take some work.
 </p>
 
 <div class="org-src-container">
@@ -118,11 +122,38 @@ Well&#x2026;the thing is that <a href="https://www.gnu.org/software/emacs/">GNU 
 </div>
 </div>
 </div>
+
+<div id="outline-container-org9cd9c05" class="outline-2">
+<h2 id="org9cd9c05">future maybe</h2>
+<div class="outline-text-2" id="text-org9cd9c05">
+<p>
+One thing I noticed is that the persistent buffers load in the wrong mode after they are reloaded from save. So I think I might add a local variable or a mode line:
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #767283;">;; </span><span style="color: #767283; font-style: italic;">-*- mode: emacs-lisp -*-</span>
+</pre>
+</div>
+
+<p>
+or
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">  <span style="color: #767283;">;; </span><span style="color: #767283; font-style: italic;">Local Variables&#58;</span>
+<span style="color: #767283;">;; </span><span style="color: #767283; font-style: italic;">mode: emacs-lisp</span>
+<span style="color: #767283;">;; </span><span style="color: #767283; font-style: italic;">End:</span>
+</pre>
+</div>
+
+<p>
+add these lines to the buffer on creation, then as long as those lines are in the buffer for life it will get the correct mode. I think&#x2026;
+</p>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="date">Date: 2024-02-03 Sat 20:21</p>
 <p class="author">Author: Leslie S Russell</p>
-<p class="date">Created: 2024-02-04 Sun 11:48</p>
+<p class="date">Created: 2024-02-04 Sun 12:10</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
