@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-02-04 Sun 11:48 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>scratch buffer enhancements</title>
+<meta name="author" content="Leslie S Russell" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet"
+		href="./assets/site.css" type="text/css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">scratch buffer enhancements</h1>
+
+<div id="outline-container-org7f92346" class="outline-2">
+<h2 id="org7f92346">scratch buffer enhancements</h2>
+<div class="outline-text-2" id="text-org7f92346">
+<p>
+A <a href="https://www.reddit.com/r/emacs/comments/1ag5oo2/comment/kouux45/?context=3">question</a> was asked on reddit:
+</p>
+
+<blockquote>
+<p>
+&#x2026;suggest an alternative to nvim plugin <code>scratch</code>
+</p>
+</blockquote>
+
+<p>
+Well&#x2026;the thing is that <a href="https://www.gnu.org/software/emacs/">GNU Emacs</a> already does most of that, and what it does't do you can just make it do. So here is my extended answer to the question.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #ffff0b;">defcustom</span> <span style="color: #4ac964;">my-custom-scratch-modes</span>
+  '(emacs-lisp-mode python-mode markdown-mode org-mode)
+  <span style="color: #fd95fa;">"List of modes to use with the custom scratch buffer function."</span>
+  <span style="color: #ff9029;">:type</span> '(repeat symbol)
+  <span style="color: #ff9029;">:group</span> 'my-customizations)
+
+(<span style="color: #ffff0b;">defvar</span> <span style="color: #4ac964;">my-persistent-scratch-created-hook</span> nil
+  <span style="color: #fd95fa;">"Hook run after creating a persistent scratch buffer."</span>)
+
+(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">create-custom-scratch-from-list</span> ()
+  <span style="color: #fd95fa;">"Create a new scratch buffer based on a mode from `my-custom-scratch-modes`."</span>
+  (<span style="color: #ffff0b;">interactive</span>)
+  (<span style="color: #ffff0b;">let*</span> ((mode-names (mapcar (<span style="color: #ffff0b;">lambda</span> (mode) (symbol-name mode)) my-custom-scratch-modes))
+         (selected-mode (intern (completing-read <span style="color: #ff7fff;">"Select mode: "</span> mode-names nil t)))
+         (buf (generate-new-buffer (format <span style="color: #ff7fff;">"*custom-scratch-%s*"</span> selected-mode))))
+    (switch-to-buffer buf)
+    (funcall selected-mode)
+    (insert (format <span style="color: #ff7fff;">";; This is a custom scratch buffer for %s\n\n"</span> selected-mode))))
+
+(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">ensure-scratch-directory-exists</span> ()
+  <span style="color: #fd95fa;">"Ensure the scratch-files directory exists in user-emacs-directory."</span>
+  (<span style="color: #ffff0b;">let</span> ((scratch-dir (expand-file-name <span style="color: #ff7fff;">"scratch-files"</span> user-emacs-directory)))
+    (<span style="color: #ffff0b;">unless</span> (file-exists-p scratch-dir)
+      (make-directory scratch-dir t))))
+
+(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">create-persistent-custom-scratch</span> ()
+  <span style="color: #fd95fa;">"Create and save a persistent custom scratch buffer based on a selected mode from `my-custom-scratch-modes`."</span>
+  (<span style="color: #ffff0b;">interactive</span>)
+  (ensure-scratch-directory-exists) <span style="color: #767283;">; </span><span style="color: #767283; font-style: italic;">Ensure the directory exists</span>
+  (<span style="color: #ffff0b;">let*</span> ((mode-names (mapcar (<span style="color: #ffff0b;">lambda</span> (mode) (symbol-name mode)) my-custom-scratch-modes))
+         (selected-mode-name (completing-read <span style="color: #ff7fff;">"Select mode: "</span> mode-names nil t))
+         (selected-mode (<span style="color: #ffff0b;">if</span> (equal selected-mode-name <span style="color: #ff7fff;">""</span>) 'text-mode (intern selected-mode-name))) <span style="color: #767283;">; </span><span style="color: #767283; font-style: italic;">Default to text-mode if no input</span>
+         (time-string (format-time-string <span style="color: #ff7fff;">"%Y%m%d-%H%M%S"</span>))
+         (filename (format <span style="color: #ff7fff;">"scratch-%s-%s"</span> selected-mode-name time-string))
+         (filepath (expand-file-name (concat <span style="color: #ff7fff;">"scratch-files/"</span> filename) user-emacs-directory)))
+    (<span style="color: #ffff0b;">with-current-buffer</span> (get-buffer-create filename)
+      (funcall selected-mode)
+      (insert (format <span style="color: #ff7fff;">";; Persistent Scratch Buffer for %s created at %s\n\n"</span> selected-mode-name time-string))
+      (write-file filepath)
+      (switch-to-buffer (current-buffer))
+      (run-hooks 'my-persistent-scratch-created-hook) <span style="color: #767283;">; </span><span style="color: #767283; font-style: italic;">Run the hook</span>
+      (message <span style="color: #ff7fff;">"Persistent scratch buffer created: %s"</span> filename))
+    ))
+
+(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">load-existing-scratch-buffer</span> ()
+  <span style="color: #fd95fa;">"Load an existing scratch buffer from saved files."</span>
+  (<span style="color: #ffff0b;">interactive</span>)
+  (<span style="color: #ffff0b;">let*</span> ((scratch-dir (expand-file-name <span style="color: #ff7fff;">"scratch-files"</span> user-emacs-directory))
+         (scratch-files (directory-files scratch-dir t <span style="color: #ff7fff;">"\\`[</span><span style="color: #ff7fff;">^</span><span style="color: #ff7fff;">.]"</span>)) <span style="color: #767283;">; </span><span style="color: #767283; font-style: italic;">Ignore dot files</span>
+         (file-names (mapcar #'file-name-nondirectory scratch-files))
+         (selected-file (completing-read <span style="color: #ff7fff;">"Select scratch file: "</span> file-names nil t)))
+    (<span style="color: #ffff0b;">when</span> selected-file
+      (find-file (expand-file-name selected-file scratch-dir)))))
+
+(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">create-persistent-custom-scratch-with-content</span> ()
+  <span style="color: #fd95fa;">"Create and save a persistent custom scratch buffer with content from the current buffer or active region.</span>
+<span style="color: #fd95fa;">If a region is active, use that region's content; otherwise, use the entire buffer's content."</span>
+  (<span style="color: #ffff0b;">interactive</span>)
+  (ensure-scratch-directory-exists) <span style="color: #767283;">; </span><span style="color: #767283; font-style: italic;">Ensure the scratch files directory exists</span>
+  (<span style="color: #ffff0b;">let*</span> ((mode-names (mapcar #'symbol-name my-custom-scratch-modes))
+         (default-mode (symbol-name (car my-custom-scratch-modes))) <span style="color: #767283;">; </span><span style="color: #767283; font-style: italic;">Default to the first mode in the list</span>
+         (prompt (format <span style="color: #ff7fff;">"Select mode (default %s): "</span> default-mode))
+         (selected-mode (intern (completing-read prompt mode-names nil t nil nil default-mode)))
+         (time-string (format-time-string <span style="color: #ff7fff;">"%Y%m%d-%H%M%S"</span>))
+         (filename (format <span style="color: #ff7fff;">"scratch-%s-%s"</span> (symbol-name selected-mode) time-string))
+         (filepath (expand-file-name (concat <span style="color: #ff7fff;">"scratch-files/"</span> filename) user-emacs-directory))
+         (content (<span style="color: #ffff0b;">if</span> (use-region-p)
+                      (buffer-substring-no-properties (region-beginning) (region-end))
+                    (buffer-string)))) <span style="color: #767283;">; </span><span style="color: #767283; font-style: italic;">Get the whole buffer's content if no region is selected</span>
+    (<span style="color: #ffff0b;">with-current-buffer</span> (get-buffer-create filename)
+      (funcall selected-mode)
+      (insert (format <span style="color: #ff7fff;">";; Persistent Scratch Buffer for %s created at %s\n\n"</span> selected-mode time-string))
+      (insert content) <span style="color: #767283;">; </span><span style="color: #767283; font-style: italic;">Insert the content from the original buffer or region</span>
+      (write-file filepath)
+      (switch-to-buffer (current-buffer))
+      (run-hooks 'my-persistent-scratch-created-hook) <span style="color: #767283;">; </span><span style="color: #767283; font-style: italic;">Run the hook</span>
+      (message <span style="color: #ff7fff;">"Persistent scratch buffer created: %s"</span> filename))))
+
+(global-set-key (kbd <span style="color: #ff7fff;">"C-c m s"</span>) 'create-custom-scratch-from-list)
+(global-set-key (kbd <span style="color: #ff7fff;">"C-c m p"</span>) 'create-persistent-custom-scratch)
+(global-set-key (kbd <span style="color: #ff7fff;">"C-c m l"</span>) 'load-existing-scratch-buffer)
+(global-set-key (kbd <span style="color: #ff7fff;">"C-c m r"</span>) 'create-persistent-custom-scratch-with-content)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2024-02-03 Sat 20:21</p>
+<p class="author">Author: Leslie S Russell</p>
+<p class="date">Created: 2024-02-04 Sun 11:48</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

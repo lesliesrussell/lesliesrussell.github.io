@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-02-04 Sun 11:48 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>unique scratch buffer for mode</title>
+<meta name="author" content="Leslie S Russell" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet"
+		href="./assets/site.css" type="text/css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">unique scratch buffer for mode</h1>
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">create-custom-scratch-buffer</span> (arg)
+  <span style="color: #fd95fa;">"Create a new scratch buffer.</span>
+<span style="color: #fd95fa;">If called with a prefix argument (C-u), create it with the current major mode.</span>
+<span style="color: #fd95fa;">Otherwise, prompt for the major mode to use."</span>
+  (<span style="color: #ffff0b;">interactive</span> <span style="color: #ff7fff;">"P"</span>)
+  (<span style="color: #ffff0b;">let</span> ((mode (<span style="color: #ffff0b;">if</span> arg
+                  major-mode
+                (intern (completing-read <span style="color: #ff7fff;">"Major mode: "</span>
+                                         (<span style="color: #ffff0b;">let</span> (modes)
+                                           (mapatoms (<span style="color: #ffff0b;">lambda</span> (sym)
+                                                       (<span style="color: #ffff0b;">when</span> (commandp sym)
+                                                         (<span style="color: #ffff0b;">push</span> (symbol-name sym) modes))))
+                                           modes))))))
+    (switch-to-buffer (generate-new-buffer-name <span style="color: #ff7fff;">"*scratch*"</span>))
+    (funcall mode)
+    (insert (format <span style="color: #ff7fff;">";; Scratch buffer in %s mode\n\n"</span> mode))))
+
+(global-set-key (kbd <span style="color: #ff7fff;">"C-c s"</span>) 'create-custom-scratch-buffer)
+</pre>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2024-02-03 Sat 19:36</p>
+<p class="author">Author: Leslie S Russell</p>
+<p class="date">Created: 2024-02-04 Sun 11:48</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
