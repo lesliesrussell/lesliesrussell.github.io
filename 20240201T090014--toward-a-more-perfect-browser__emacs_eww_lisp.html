@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2024-02-04 Sun 11:48 -->
+<!-- 2024-02-04 Sun 23:52 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>toward a more perfect browser</title>
@@ -14,15 +14,15 @@
 <div id="content" class="content">
 <h1 class="title">toward a more perfect browser</h1>
 
-<div id="outline-container-org6f0d26b" class="outline-2">
-<h2 id="org6f0d26b">the smol web</h2>
-<div class="outline-text-2" id="text-org6f0d26b">
+<div id="outline-container-org2f13e96" class="outline-2">
+<h2 id="org2f13e96">the smol web</h2>
+<div class="outline-text-2" id="text-org2f13e96">
 <p>
 When I browse the internet, I want it to be like reading a book. I really don't want a bunch of blinking and moving and crap floating hither and yon. I just want text and some images. I spend so much time in <a href="https://www.gnu.org/software/emacs/">GNU Emacs</a> that if the page doesn't render in <a href="https://www.gnu.org/software/emacs/manual/html_mono/eww.html">eww</a> I can't take it seriously. I hate having to open a browser just to get a bit of information. Mostly, I skip sites that don't render in eww. I am really that lazy. So lazy that I get fatigue from switching to another application just to wade through all the blinking bullshit.
 </p>
 
 
-<div id="org128012e" class="figure">
+<div id="org1d54659" class="figure">
 <p><img src="images/bad-example.png" alt="bad-example.png" />
 </p>
 </div>
@@ -32,16 +32,16 @@ This is the reason I don't use <a href="https://melpa.org/#/">Melpa.org</a> I te
 </p>
 </div>
 
-<div id="outline-container-orgefeb6c9" class="outline-3">
-<h3 id="orgefeb6c9">select a site</h3>
-<div class="outline-text-3" id="text-orgefeb6c9">
+<div id="outline-container-org583e4d5" class="outline-3">
+<h3 id="org583e4d5">select a site</h3>
+<div class="outline-text-3" id="text-org583e4d5">
 <p>
 I have a fistful of little tweaks I have saved for making eww do what I want. One of the things I want is to be able to switch back and forth between search engines. Sometimes I just want to Google, an answer&#x2026; any answer, but sometimes I know what kind of answer I need and the site that might best provide it. Why not get it from the horse?
 </p>
 </div>
-<div id="outline-container-org89dd7d9" class="outline-4">
-<h4 id="org89dd7d9">explanation:</h4>
-<div class="outline-text-4" id="text-org89dd7d9">
+<div id="outline-container-org7159026" class="outline-4">
+<h4 id="org7159026">explanation:</h4>
+<div class="outline-text-4" id="text-org7159026">
 <ul class="org-ul">
 <li><b><b>`defcustom`</b></b>: This creates a customizable variable `eww-search-engine-list`. Emacs users can customize this variable through the `customize` interface, adding or removing search engines as they wish.</li>
 <li><b><b>List of Cons Cells</b></b>: Each search engine is represented as a cons cell, with the car (first element) being the search engine's name (a string) and the cdr (second element) being the search engine's URL prefix (also a string).</li>
@@ -50,18 +50,18 @@ I have a fistful of little tweaks I have saved for making eww do what I want. On
 </div>
 </div>
 
-<div id="outline-container-org8d6bcd8" class="outline-4">
-<h4 id="org8d6bcd8">using this variable:</h4>
-<div class="outline-text-4" id="text-org8d6bcd8">
+<div id="outline-container-org9250ee7" class="outline-4">
+<h4 id="org9250ee7">using this variable:</h4>
+<div class="outline-text-4" id="text-org9250ee7">
 <p>
 To use `eww-search-engine-list` in conjunction with the `set-eww-prefix` function you want to create, you can modify `set-eww-prefix` to let the user select a search engine by name, and then automatically set the `eww-search-prefix` based on their selection. Here's an adjusted version of `set-eww-prefix` to use `eww-search-engine-list`:
 </p>
 </div>
 </div>
 
-<div id="outline-container-org5016ae7" class="outline-4">
-<h4 id="org5016ae7">how the eww-select-prefix function works:</h4>
-<div class="outline-text-4" id="text-org5016ae7">
+<div id="outline-container-org9aebdd6" class="outline-4">
+<h4 id="org9aebdd6">how the eww-select-prefix function works:</h4>
+<div class="outline-text-4" id="text-org9aebdd6">
 <ul class="org-ul">
 <li>It first creates a list of engine names from `eww-search-engine-list` using `mapcar` to extract the `car` of each cons cell.</li>
 <li>It then prompts the user to select an engine name using `completing-read`, which provides completion for available search engines.</li>
@@ -106,17 +106,17 @@ This approach gives you a flexible and user-friendly way to switch between searc
 </div>
 </div>
 
-<div id="outline-container-orgcfe9eb9" class="outline-2">
-<h2 id="orgcfe9eb9">nothing special</h2>
-<div class="outline-text-2" id="text-orgcfe9eb9">
+<div id="outline-container-orgc514649" class="outline-2">
+<h2 id="orgc514649">nothing special</h2>
+<div class="outline-text-2" id="text-orgc514649">
 <p>
 But that is the great thing about <a href="https://www.gnu.org/software/emacs/">GNU Emacs</a>, a few nothing specials strapped together make your life much more enjoyable. You can make it as complex or as simple as you like.
 </p>
 </div>
 
-<div id="outline-container-org438d3ed" class="outline-4">
-<h4 id="org438d3ed">some further tweaks</h4>
-<div class="outline-text-4" id="text-org438d3ed">
+<div id="outline-container-org8a3b292" class="outline-4">
+<h4 id="org8a3b292">some further tweaks</h4>
+<div class="outline-text-4" id="text-org8a3b292">
 <p>
 As I said this is nothing special even tho I use it daily. But there are a few things I want to add:
 </p>
@@ -138,6 +138,10 @@ As I said this is nothing special even tho I use it daily. But there are a few t
 
 </pre>
 </div>
+
+<p>
+<a href="20240204T231806--caveat-lector__warning.html">caveat lector</a>
+</p>
 </div>
 </div>
 </div>
@@ -145,7 +149,7 @@ As I said this is nothing special even tho I use it daily. But there are a few t
 <div id="postamble" class="status">
 <p class="date">Date: 2024-02-01 Thu 09:00</p>
 <p class="author">Author: Leslie S Russell</p>
-<p class="date">Created: 2024-02-04 Sun 11:48</p>
+<p class="date">Created: 2024-02-04 Sun 23:52</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

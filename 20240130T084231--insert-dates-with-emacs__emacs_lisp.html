@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2024-02-04 Sun 11:48 -->
+<!-- 2024-02-04 Sun 23:52 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>insert dates with emacs</title>
@@ -14,9 +14,9 @@
 <div id="content" class="content">
 <h1 class="title">insert dates with emacs</h1>
 
-<div id="outline-container-orgbfa5d8e" class="outline-2">
-<h2 id="orgbfa5d8e">Well that was easy</h2>
-<div class="outline-text-2" id="text-orgbfa5d8e">
+<div id="outline-container-org94b92b7" class="outline-2">
+<h2 id="org94b92b7">Well that was easy</h2>
+<div class="outline-text-2" id="text-org94b92b7">
 <p>
 All it really took was a quick duck and boom, there's the <a href="https://www.emacswiki.org/emacs/InsertingTodaysDate">answer</a>!
 </p>
@@ -44,9 +44,9 @@ A little underwhelming if I'm honest, I was hoping for a fun destraction but was
 </div>
 </div>
 
-<div id="outline-container-org4efcd49" class="outline-2">
-<h2 id="org4efcd49">how to get the key</h2>
-<div class="outline-text-2" id="text-org4efcd49">
+<div id="outline-container-org0c03d62" class="outline-2">
+<h2 id="org0c03d62">how to get the key</h2>
+<div class="outline-text-2" id="text-org0c03d62">
 <p>
 I want a way to prompt me for the key, and then insert that into the buffer with the code wrapped around it. Lucky for me I already have the first part <a href="20240130T014933--temporarily-rebind-a-key-in-emacs__emacs_lisp.html">solved</a>.
 </p>
@@ -85,9 +85,9 @@ Now I can just use my new function to insert a binding for this function into my
 </div>
 </div>
 
-<div id="outline-container-orgd95ecc9" class="outline-3">
-<h3 id="orgd95ecc9">errors and omissions</h3>
-<div class="outline-text-3" id="text-orgd95ecc9">
+<div id="outline-container-org6fdb335" class="outline-3">
+<h3 id="org6fdb335">errors and omissions</h3>
+<div class="outline-text-3" id="text-org6fdb335">
 <p>
 This little gadget works fine if I just rely on <a href="https://www.gnu.org/software/emacs/">GNU Emacs</a> builtin completion but I could still type an incorrect function and that would cause me pain down the road. So I better add some error correction, and clean it up so it is a little more readable.
 </p>
@@ -111,9 +111,9 @@ Now that works, but what if the key is already bound? I don't want to just clobb
 </div>
 </div>
 
-<div id="outline-container-org5e19363" class="outline-3">
-<h3 id="org5e19363">the finished product</h3>
-<div class="outline-text-3" id="text-org5e19363">
+<div id="outline-container-orge2baca0" class="outline-3">
+<h3 id="orge2baca0">the finished product</h3>
+<div class="outline-text-3" id="text-orge2baca0">
 <p>
 While it has very little to do with inserting dates into a buffer one problem with an easy solution lead me to a handy bit of reusable automation.
 </p>
@@ -141,6 +141,10 @@ While it has very little to do with inserting dates into a buffer one problem wi
 <p>
 So now I can bind this function to an unused key, or just call it from the <code>execute-extended-command</code> and get my snippet inserted right where I want it all while feeling secure that I didn't blindly screw up something already in use.
 </p>
+
+<p>
+<a href="20240204T231806--caveat-lector__warning.html">caveat lector</a>
+</p>
 </div>
 </div>
 </div>
@@ -148,7 +152,7 @@ So now I can bind this function to an unused key, or just call it from the <code
 <div id="postamble" class="status">
 <p class="date">Date: 2024-01-30 Tue 08:42</p>
 <p class="author">Author: Leslie S Russell</p>
-<p class="date">Created: 2024-02-04 Sun 11:48</p>
+<p class="date">Created: 2024-02-04 Sun 23:52</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-02-04 Sun 23:52 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>mode specific hydras</title>
+<meta name="author" content="Leslie S Russell" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet"
+		href="./assets/site.css" type="text/css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">mode specific hydras</h1>
+
+<div id="org8f01b83" class="figure">
+<p><img src="images/hydra.png" alt="hydra.png" />
+</p>
+</div>
+
+<div id="outline-container-org7468295" class="outline-2">
+<h2 id="org7468295">hydras everywhere</h2>
+<div class="outline-text-2" id="text-org7468295">
+<p>
+I have been using repeat maps for motion, specifically sexp motion and editing. I mean&#x2026; it works. But a major drawback is that there is no visual feedback so you never know if the map is active or not. I am sure there is a way, but <a href="https://github.com/abo-abo/hydra">hydra</a> exists. However I don't want to haphaxardly bind <a href="https://github.com/abo-abo/hydra">hydras</a> to keys all over the place.
+I tried binding them all under one prefix, but I realized that I have a pretty narrow set of uses for them, and I like to try and cut down the "C-c h ?" because narrow tho the use is, frequent is the use.
+</p>
+
+<p>
+One key, dedicated to one function which decides what <a href="https://github.com/abo-abo/hydra">hydra</a> I mean.
+</p>
+
+<p>
+Below is the function (self-explanatory) along with a couple of examples and the key bind I use. But you are on your own from there (<a href="20240204T231806--caveat-lector__warning.html">caveat lector</a>)
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #ffff0b;">defun</span> <span style="color: #ff996f;">activate-mode-hydra</span> ()
+  <span style="color: #fd95fa;">"Activates a mode-specific hydra if it exists."</span>
+  (<span style="color: #ffff0b;">interactive</span>)
+  (<span style="color: #ffff0b;">let</span> ((mode-hydra (intern (concat <span style="color: #ff7fff;">"hydra-"</span> (symbol-name major-mode) <span style="color: #ff7fff;">"/body"</span>))))
+    (<span style="color: #ffff0b;">if</span> (fboundp mode-hydra)
+        (call-interactively mode-hydra)
+      (message <span style="color: #ff7fff;">"No hydra defined for %s"</span> major-mode))))
+
+(<span style="color: #ffff0b;">defhydra</span> hydra-lisp-interaction-mode (<span style="color: #ff9029;">:color</span> <span style="color: #ffffff; background-color: #0000ff;">blue</span>)
+  <span style="color: #fd95fa;">"Emacs Lisp"</span>
+  (<span style="color: #ff7fff;">"e"</span> eval-defun <span style="color: #ff7fff;">"evaluate defun"</span>)
+  (<span style="color: #ff7fff;">"b"</span> eval-buffer <span style="color: #ff7fff;">"evaluate buffer"</span>))
+
+(<span style="color: #ffff0b;">defhydra</span> hydra-python-mode (<span style="color: #ff9029;">:color</span> <span style="color: #ffffff; background-color: #0000ff;">blue</span>)
+  <span style="color: #fd95fa;">"Python"</span>
+  (<span style="color: #ff7fff;">"r"</span> run-python <span style="color: #ff7fff;">"run Python REPL"</span>)
+  (<span style="color: #ff7fff;">"e"</span> python-shell-send-buffer <span style="color: #ff7fff;">"send buffer to REPL"</span>))
+
+(global-set-key (kbd <span style="color: #ff7fff;">"C-'"</span>) 'activate-mode-hydra)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2024-02-04 Sun 22:50</p>
+<p class="author">Author: Leslie S Russell</p>
+<p class="date">Created: 2024-02-04 Sun 23:52</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
