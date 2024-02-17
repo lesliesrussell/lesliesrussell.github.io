@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-02-17 Sat 09:43 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>toggle current time and state records</title>
+<meta name="author" content="Leslie S Russell" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet"
+		href="./assets/site.css" type="text/css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">toggle current time and state records</h1>
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #8ac6f2; font-weight: bold;">defvar</span> <span style="color: #cae682;">current-state</span> nil <span style="color: #95e454;">"Current state, default nil."</span>)
+(<span style="color: #8ac6f2; font-weight: bold;">defvar</span> <span style="color: #cae682;">typing-timestamps</span> '() <span style="color: #95e454;">"List of typing start and end timestamps along with their states."</span>)
+
+(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">current-time-and-state</span> ()
+  <span style="color: #95e454;">"Toggle the current state and return the current time along with the new state."</span>
+  (<span style="color: #8ac6f2; font-weight: bold;">setq</span> current-state (not current-state))
+  (list (current-time) current-state))
+
+(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">update-typing-timestamps</span> ()
+  <span style="color: #95e454;">"Update the list of timestamps based on the current state, recording each timestamp with its state ('</span><span style="color: #e5786d;">started</span><span style="color: #95e454;">' or '</span><span style="color: #e5786d;">ended</span><span style="color: #95e454;">')."</span>
+  (<span style="color: #8ac6f2; font-weight: bold;">let</span> ((current-time (current-time)))
+    (<span style="color: #8ac6f2; font-weight: bold;">if</span> current-state
+        <span style="color: #99968b;">;; </span><span style="color: #99968b;">If current-state is t, it means typing has just started.</span>
+        (<span style="color: #8ac6f2; font-weight: bold;">setq</span> typing-timestamps (append typing-timestamps (list (list current-time 'started))))
+      <span style="color: #99968b;">;; </span><span style="color: #99968b;">If current-state is nil, it means typing has just ended.</span>
+      (<span style="color: #8ac6f2; font-weight: bold;">setq</span> typing-timestamps (append typing-timestamps (list (list current-time 'ended)))))
+    <span style="color: #99968b;">;; </span><span style="color: #99968b;">Optionally print the updated list for verification.</span>
+    (message <span style="color: #95e454;">"Typing Timestamps: %S"</span> typing-timestamps)))
+
+(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">toggle-typing-state</span> ()
+  (<span style="color: #8ac6f2; font-weight: bold;">interactive</span>)
+  <span style="color: #99968b;">;; </span><span style="color: #99968b;">Now, extract the state from the last entry to determine the correct message.</span>
+  (current-time-and-state)
+  (<span style="color: #8ac6f2; font-weight: bold;">let*</span> ((last-entry (car (last typing-timestamps)))
+         (last-state (cadr last-entry))
+         (typing-info (<span style="color: #8ac6f2; font-weight: bold;">if</span> (eq last-state 'started) <span style="color: #95e454;">"Typing session started at"</span> <span style="color: #95e454;">"Typing session ended at"</span>)))
+    <span style="color: #99968b;">;; </span><span style="color: #99968b;">Display the message, including the state.</span>
+    <span style="color: #99968b;">;; </span><span style="color: #99968b;">Update the typing timestamps list with the current time and state.</span>
+    (message <span style="color: #95e454;">"current state: %s"</span> current-state)
+    (update-typing-timestamps)
+
+    (message <span style="color: #95e454;">"%s: %s"</span> typing-info (format-time-string <span style="color: #95e454;">"%Y-%m-%d %H:%M:%S"</span> (car last-entry)))))
+
+(global-set-key (kbd <span style="color: #95e454;">"C-c o"</span>) #'toggle-typing-state)
+</pre>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2024-02-16 Fri 13:48</p>
+<p class="author">Author: Leslie S Russell</p>
+<p class="date">Created: 2024-02-17 Sat 09:43</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

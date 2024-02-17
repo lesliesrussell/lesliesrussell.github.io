@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-02-17 Sat 09:43 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>brogrammer</title>
+<meta name="author" content="Leslie S Russell" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet"
+		href="./assets/site.css" type="text/css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">brogrammer</h1>
+<p>
+1234567890-=
+qwfpbjluy;[]\
+arstgmneio'
+xcdvzkh,./
+</p>
+
+<p>
+the above is my current keyboard layout
+given that i only have three fingers on each hand (i have no pinkies)
+i need to optimize my layout for three fingers on each hand
+I am a programmer primarilly in lisp and python so i need the punctuation closer to homerow
+i am a touch typist so home row is my base
+i am an arch linux user so i can use xkb to define my layout
+i can use shift layers to acces numbers and punctuation
+i want access to punctuation and numbers to be available with the index or middle finger
+</p>
+
+<p>
+To optimize your keyboard layout for three fingers on each hand and prioritize access to punctuation and numbers for your index or middle finger, you can consider the following suggestions:
+</p>
+
+<ol class="org-ol">
+<li>Prioritize frequently used punctuation: Place commonly used punctuation marks, such as period (.), comma (,), and parentheses (() and ()), on keys easily accessible to your index or middle finger on the home row.</li>
+
+<li>Utilize modifier keys for numbers: Assign numbers to keys using a combination of modifier keys (such as Shift) and the corresponding letters on the home row. For example, you can assign Shift+J to represent the number 1, Shift+K for 2, and so on.</li>
+
+<li>Explore using the AltGr key: If your keyboard layout supports it, consider utilizing the AltGr (Right Alt) key as a dedicated key for accessing less frequently used punctuation marks or special characters.</li>
+
+<li>Customize your layout with xkb: Using the xkb utility in Arch Linux, you can create a custom keyboard layout to meet your specific requirements. You can remap keys, define new key combinations, and position punctuation marks as needed. Consult the xkb documentation or online tutorials for detailed instructions on creating a custom layout.</li>
+</ol>
+
+<p>
+Remember to experiment with different layouts to find what works best for you. Providing comfort and efficiency in your preferred programming languages (Lisp and Python) should guide your decision-making process. Good luck optimizing your keyboard layout!
+</p>
+
+<p>
+show me such a layout
+</p>
+
+<p>
+Creating a custom keyboard layout requires modifying the XKB configuration files. Here's an example layout based on your preferences:
+</p>
+
+<ol class="org-ol">
+<li>Create a new file, such as `custom`, under `/usr/share/X11/xkb/symbols/`.</li>
+
+<li>Open the `custom` file and add the following content:</li>
+</ol>
+
+<p>
+```
+partial alphanumeric<sub>keys</sub>
+xkb<sub>symbols</sub> "optimizelayout" {
+</p>
+
+<p>
+// Left hand keys
+key &lt;AD01&gt; { [q, Q, bracketleft, parenleft ] };
+key &lt;AD02&gt; { [w, W, bracketright, parenright ] };
+key &lt;AD03&gt; { [f, F, braceleft, less ] };
+</p>
+
+<p>
+// Right hand keys
+key &lt;AD07&gt; { [j, J, 1, exclam ] };
+key &lt;AD08&gt; { [k, K, 2, at ] };
+key &lt;AD09&gt; { [l, L, 3, numbersign ] };
+</p>
+
+<p>
+// Numbers and punctuation layer
+key &lt;AD04&gt; { [1, exclamation ] };
+key &lt;AD05&gt; { [2, at ] };
+key &lt;AD06&gt; { [3, numbersign ] };
+</p>
+
+<p>
+    // Other modified keys
+    key &lt;AC04&gt; { [g, G, braceleft, bar ] };
+    key &lt;AC07&gt; { [semicolon, colon, minus, underscore ] };
+};
+```
+</p>
+
+<ol class="org-ol">
+<li>Save the `custom` file.</li>
+
+<li>Open the `/usr/share/X11/xkb/rules/evdev.xml` file for editing.</li>
+
+<li>Find the `&lt;layoutList&gt;` section and add the following code inside it:</li>
+</ol>
+
+<p>
+```
+&lt;layout&gt;
+  &lt;configItem&gt;
+    &lt;name&gt;custom&lt;/name&gt;
+    &lt;shortDescription&gt;Custom&lt;/shortDescription&gt;
+    &lt;description&gt;Custom Layout&lt;/description&gt;
+    &lt;languageList&gt;
+      &lt;iso639Id&gt;eng&lt;/iso639Id&gt;
+    &lt;/languageList&gt;
+  &lt;/configItem&gt;
+  &lt;variantList/&gt;
+&lt;/layout&gt;
+```
+</p>
+
+<ol class="org-ol">
+<li>Save and exit `evdev.xml`.</li>
+
+<li>Open a terminal and run the following command to apply the layout:</li>
+</ol>
+
+<p>
+```
+setxkbmap -layout custom -variant optimizelayout
+```
+</p>
+
+<p>
+After running this command, your custom layout should be activated. Remember to adapt the layout to your needs and preferences, test it, and make any adjustments if necessary.
+</p>
+
+<p>
+lets call it the colemak brogrammers layout
+</p>
+
+<p>
+Certainly! Let's rename the layout to "Colemak Brogrammers" to reflect its purpose for programmers using Colemak as the base. Here's the modified version:
+</p>
+
+<ol class="org-ol">
+<li>Create a new file, such as `colemak<sub>brogrammers</sub>`, under `/usr/share/X11/xkb/symbols/`.</li>
+
+<li>Open the `colemak<sub>brogrammers</sub>` file and add the following content:</li>
+</ol>
+
+<p>
+```
+partial alphanumeric<sub>keys</sub>
+xkb<sub>symbols</sub> "colemak<sub>brogrammers</sub>" {
+</p>
+
+<p>
+// Left hand keys
+key &lt;AD01&gt; { [q, Q, bracketleft, parenleft ] };
+key &lt;AD02&gt; { [w, W, bracketright, parenright ] };
+key &lt;AD03&gt; { [f, F, braceleft, less ] };
+</p>
+
+<p>
+// Right hand keys
+key &lt;AD07&gt; { [j, J, 1, exclam ] };
+key &lt;AD08&gt; { [k, K, 2, at ] };
+key &lt;AD09&gt; { [l, L, 3, numbersign ] };
+</p>
+
+<p>
+// Numbers and punctuation layer
+key &lt;AD04&gt; { [1, exclamation ] };
+key &lt;AD05&gt; { [2, at ] };
+key &lt;AD06&gt; { [3, numbersign ] };
+</p>
+
+<p>
+    // Other modified keys
+    key &lt;AC04&gt; { [g, G, braceleft, bar ] };
+    key &lt;AC07&gt; { [semicolon, colon, minus, underscore ] };
+};
+```
+</p>
+
+<ol class="org-ol">
+<li>Save the `colemak<sub>brogrammers</sub>` file.</li>
+
+<li>Open the `/usr/share/X11/xkb/rules/evdev.xml` file for editing.</li>
+
+<li>Find the `&lt;layoutList&gt;` section and add the following code inside it:</li>
+</ol>
+
+<p>
+```
+&lt;layout&gt;
+  &lt;configItem&gt;
+    &lt;name&gt;colemak<sub>brogrammers</sub>&lt;/name&gt;
+    &lt;shortDescription&gt;Colemak Brogrammers&lt;/shortDescription&gt;
+    &lt;description&gt;Colemak Brogrammers Layout&lt;/description&gt;
+    &lt;languageList&gt;
+      &lt;iso639Id&gt;eng&lt;/iso639Id&gt;
+    &lt;/languageList&gt;
+  &lt;/configItem&gt;
+  &lt;variantList/&gt;
+&lt;/layout&gt;
+```
+</p>
+
+<ol class="org-ol">
+<li>Save and exit `evdev.xml`.</li>
+
+<li>Open a terminal and run the following command to apply the layout:</li>
+</ol>
+
+<p>
+```
+setxkbmap -layout colemak<sub>brogrammers</sub> -variant colemak<sub>brogrammers</sub>
+```
+</p>
+
+<p>
+Now you should have the "Colemak Brogrammers" layout available for use. Feel free to tweak and refine it further to suit your specific needs.
+</p>
+
+<p>
+lets see the entire layout
+</p>
+
+<p>
+Certainly! Here's the complete modified layout, named "Colemak Brogrammers":
+</p>
+
+<p>
+```bash
+partial alphanumeric<sub>keys</sub>
+xkb<sub>symbols</sub> "colemak<sub>brogrammers</sub>" {
+</p>
+
+<p>
+// Row 1
+key &lt;AD01&gt; { [q, Q, bracketleft, parenleft ] };
+key &lt;AD02&gt; { [w, W, bracketright, parenright ] };
+key &lt;AD03&gt; { [f, F, braceleft, less ] };
+key &lt;AD04&gt; { [p, P, grave, asciitilde ] };
+key &lt;AD05&gt; { [b, B, slash, question ] };
+key &lt;AD06&gt; { [j, J, 1, exclam ] };
+key &lt;AD07&gt; { [l, L, 2, at ] };
+key &lt;AD08&gt; { [u, U, 3, numbersign ] };
+key &lt;AD09&gt; { [y, Y, 4, dollar ] };
+key &lt;AD10&gt; { [semicolon, colon, minus, underscore ] };
+</p>
+
+<p>
+// Row 2
+key &lt;AC01&gt; { [a, A, equal, plus ] };
+key &lt;AC02&gt; { [r, R, apostrophe, quotedbl ] };
+key &lt;AC03&gt; { [s, S, comma, less ] };
+key &lt;AC04&gt; { [t, T, period, greater ] };
+key &lt;AC05&gt; { [g, G, braceleft, bar ] };
+key &lt;AC06&gt; { [m, M, bracketleft, braceleft ] };
+key &lt;AC07&gt; { [n, N, bracketright, braceright ] };
+key &lt;AC08&gt; { [e, E, 5, percent ] };
+key &lt;AC09&gt; { [i, I, 6, asciicircum ] };
+key &lt;AC10&gt; { [o, O, 7, ampersand ] };
+key &lt;AC11&gt; { [quotedbl, asterisk, 8, asterisk ] };
+</p>
+
+<p>
+// Row 3
+key &lt;AB01&gt; { [z, Z, less, greater ] };
+key &lt;AB02&gt; { [x, X, semicolon, colon ] };
+key &lt;AB03&gt; { [c, C, equal, plus ] };
+key &lt;AB04&gt; { [d, D, minus, hyphen ] };
+key &lt;AB05&gt; { [v, V, underscore, bar ] };
+key &lt;AB06&gt; { [k, K, 1, exclamation ] };
+key &lt;AB07&gt; { [h, H, 2, at ] };
+key &lt;AB08&gt; { [t, T, 3, numbersign ] };
+key &lt;AB09&gt; { [n, N, 4, dollar ] };
+key &lt;AB10&gt; { [comma, less, grave, asciitilde ] };
+</p>
+
+<p>
+// Row 4
+key &lt;AE01&gt; { [backslash, bar, section, tilde ] };
+key &lt;AE02&gt; { [backslash, bar, section, tilde ] };
+key &lt;AE03&gt; { [backslash, bar, section, tilde ] };
+key &lt;AE04&gt; { [Caps<sub>Lock</sub> ] };
+key &lt;AE05&gt; { [bracketright, 7, braceleft, braceleft ] };
+key &lt;AE06&gt; { [p, P, 8, asterisk ] };
+key &lt;AE07&gt; { [r, R, 9, parenleft ] };
+key &lt;AE08&gt; { [s, S, 0, parenright ] };
+key &lt;AE09&gt; { [t, T, braceleft, plus ] };
+key &lt;AE10&gt; { [slash, question, braceright, minus ] };
+</p>
+
+<p>
+    // Row 5
+    key &lt;AC11&gt; { [Control<sub>R</sub>, Control<sub>R</sub> ] };
+    key &lt;BKSL&gt; { [KP<sub>Delete</sub>, KP<sub>Decimal</sub>, KP<sub>Delete</sub>, KP<sub>Decimal</sub> ] };
+    key &lt;AC12&gt; { [Meta<sub>L</sub>, Meta<sub>L</sub> ] };
+    key &lt;AE12&gt; { [Alt<sub>R</sub>, Alt<sub>R</sub> ] };
+};
+```
+</p>
+
+<p>
+To use this layout, follow the steps provided in the previous responses for creating and applying the custom layout. Feel free to customize it further to match your specific preferences.
+</p>
+
+<p>
+can you show me a visualixation image
+</p>
+
+<p>
+As a text-based AI language model, I cannot directly generate or display images. However, I can help describe the layout visually for you:
+</p>
+
+<p>
+```
+ <span class="underline"><span class="underline"><span class="underline"><span class="underline"><span class="underline"><span class="underline"><span class="underline"><span class="underline"><span class="underline"><span class="underline"><span class="underline"><span class="underline"><span class="underline"><span class="underline"><span class="underline"><span class="underline"><span class="underline"><span class="underline"><span class="underline">_</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span>
+</p>
+<table>
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">{</td>
+<td class="org-left">}</td>
+<td class="org-left">` ~</td>
+<td class="org-left">/ ?</td>
+<td class="org-left">1 !</td>
+</tr>
+
+<tr>
+<td class="org-left"><span class="underline">__</span></td>
+<td class="org-left"><span class="underline">__</span></td>
+<td class="org-left"><span class="underline">__</span></td>
+<td class="org-left"><span class="underline">__</span></td>
+<td class="org-left"><span class="underline"><span class="underline">_</span></span></td>
+<td class="org-left"><span class="underline"><span class="underline">_</span></span></td>
+<td class="org-left"><span class="underline"><span class="underline">_</span></span></td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">[</td>
+<td class="org-left">]</td>
+<td class="org-left">, &lt;</td>
+<td class="org-left">2 @</td>
+<td class="org-left">3 #</td>
+</tr>
+
+<tr>
+<td class="org-left"><span class="underline">__</span></td>
+<td class="org-left"><span class="underline">__</span></td>
+<td class="org-left"><span class="underline">__</span></td>
+<td class="org-left"><span class="underline">__</span></td>
+<td class="org-left"><span class="underline"><span class="underline">__</span></span></td>
+<td class="org-left"><span class="underline"><span class="underline">__</span></span></td>
+<td class="org-left"><span class="underline"><span class="underline">__</span></span></td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">' "</td>
+<td class="org-left">; :</td>
+<td class="org-left">- _</td>
+<td class="org-left">4 $</td>
+<td class="org-left">5 %</td>
+</tr>
+
+<tr>
+<td class="org-left"><span class="underline">__</span></td>
+<td class="org-left"><span class="underline">__</span></td>
+<td class="org-left"><span class="underline">__</span></td>
+<td class="org-left"><span class="underline">__</span></td>
+<td class="org-left"><span class="underline"><span class="underline">__</span></span></td>
+<td class="org-left"><span class="underline"><span class="underline">__</span></span></td>
+<td class="org-left"><span class="underline"><span class="underline">__</span></span></td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">\</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">. &gt;</td>
+<td class="org-left">6 ^</td>
+<td class="org-left">7 &amp;</td>
+</tr>
+
+<tr>
+<td class="org-left"><span class="underline">__</span></td>
+<td class="org-left"><span class="underline">__</span></td>
+<td class="org-left"><span class="underline">__</span></td>
+<td class="org-left"><span class="underline">__</span></td>
+<td class="org-left"><span class="underline"><span class="underline"><span class="underline">_</span></span></span></td>
+<td class="org-left"><span class="underline"><span class="underline"><span class="underline">_</span></span></span></td>
+<td class="org-left"><span class="underline"><span class="underline">_</span></span></td>
+</tr>
+
+<tr>
+<td class="org-left">Ctrl</td>
+<td class="org-left">Alt</td>
+<td class="org-left">Win</td>
+<td class="org-left">Space</td>
+<td class="org-left">Bksp</td>
+</tr>
+
+<tr>
+<td class="org-left"><span class="underline"><span class="underline">__</span></span></td>
+<td class="org-left"><span class="underline"><span class="underline">__</span></span></td>
+<td class="org-left"><span class="underline"><span class="underline">__</span></span></td>
+<td class="org-left"><span class="underline"><span class="underline"><span class="underline"><span class="underline"><span class="underline">__</span></span></span></span></span></td>
+<td class="org-left"><span class="underline"><span class="underline">__</span></span></td>
+</tr>
+</tbody>
+</table>
+<p>
+```
+</p>
+
+<p>
+Please note that this visualization is a rough representation and the actual appearance of the keys on your keyboard may vary. By referring to this representation, you can get a sense of how the keys are arranged in the "Colemak Brogrammers" layout.
+</p>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2024-02-14 Wed 14:27</p>
+<p class="author">Author: Leslie S Russell</p>
+<p class="date">Created: 2024-02-17 Sat 09:43</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

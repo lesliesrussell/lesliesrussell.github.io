@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-02-17 Sat 09:43 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>timer function</title>
+<meta name="author" content="Leslie S Russell" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet"
+		href="./assets/site.css" type="text/css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">timer function</h1>
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">start-my-timer</span> ()
+  <span style="color: #95e454;">"Starts a timer that displays a message after 5 seconds."</span>
+  (<span style="color: #8ac6f2; font-weight: bold;">interactive</span>)
+  (run-with-timer 5 nil
+                  (<span style="color: #8ac6f2; font-weight: bold;">lambda</span> ()
+                    (message <span style="color: #95e454;">"Timer finished!"</span>))))
+</pre>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2024-02-15 Thu 12:36</p>
+<p class="author">Author: Leslie S Russell</p>
+<p class="date">Created: 2024-02-17 Sat 09:43</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

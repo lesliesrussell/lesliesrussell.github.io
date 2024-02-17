@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-02-17 Sat 09:43 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>clear modkeys</title>
+<meta name="author" content="Leslie S Russell" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet"
+		href="./assets/site.css" type="text/css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">clear modkeys</h1>
+<div class="org-src-container">
+<pre class="src src-sh">xmodmap -e <span style="color: #95e454;">"clear Mod1"</span>  // Clears the modifier mapping for Alt
+xmodmap -e <span style="color: #95e454;">"keycode &lt;LALT_keycode&gt; = ISO_Level3_Shift"</span>
+xmodmap -e <span style="color: #95e454;">"keycode &lt;RALT_keycode&gt; = ISO_Level3_Shift"</span>
+</pre>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2024-02-10 Sat 22:41</p>
+<p class="author">Author: Leslie S Russell</p>
+<p class="date">Created: 2024-02-17 Sat 09:43</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

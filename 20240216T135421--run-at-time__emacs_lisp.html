@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-02-17 Sat 09:43 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>run at time</title>
+<meta name="author" content="Leslie S Russell" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet"
+		href="./assets/site.css" type="text/css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">run at time</h1>
+<p>
+Yes, in Emacs, you can schedule a command to run at a specific time using the `run-at-time` function. This function allows you to execute an Emacs Lisp expression at a specified time in the future, similar to how the `at` command works in Linux.
+</p>
+
+<p>
+The `run-at-time` function has the following basic syntax:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(run-at-time TIME DELAY REPEAT FUNCTION <span style="color: #92a65e; font-weight: bold;">&amp;rest</span> ARGS)
+</pre>
+</div>
+
+<ul class="org-ul">
+<li><b><b>TIME</b></b>: When to first run the function. This can be a string representing a time of day (e.g., `"11:30pm"`), a number of seconds from now, or `nil` (meaning now). If this argument is a time of day and that time has already passed, it runs the function the next time that moment occurs.</li>
+<li><b><b>DELAY</b></b>: A delay in seconds before running the function. This is added to the TIME.</li>
+<li><b><b>REPEAT</b></b>: If non-nil, the function is called every REPEAT seconds.</li>
+<li><b><b>FUNCTION</b></b>: The function to call.</li>
+<li><b><b>ARGS</b></b>: Any additional arguments to pass to the function.</li>
+</ul>
+
+<p>
+Here's an example that schedules a simple message to be displayed in the <b>Messages</b> buffer 5 seconds from now:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(run-at-time 5 nil (<span style="color: #8ac6f2; font-weight: bold;">lambda</span> () (message <span style="color: #95e454;">"Hello, Emacs!"</span>)))
+</pre>
+</div>
+
+<p>
+And here's how you might schedule a function to run at a specific time of day, say at 8:00 PM (20:00):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(run-at-time <span style="color: #95e454;">"20:00"</span> nil (<span style="color: #8ac6f2; font-weight: bold;">lambda</span> () (message <span style="color: #95e454;">"Good evening, Emacs!"</span>)))
+</pre>
+</div>
+
+<p>
+If you want to cancel a scheduled function, you can use the `cancel-timer` function, which requires you to keep track of the timer object returned by `run-at-time`:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #8ac6f2; font-weight: bold;">setq</span> my-timer (run-at-time <span style="color: #95e454;">"20:00"</span> nil (<span style="color: #8ac6f2; font-weight: bold;">lambda</span> () (message <span style="color: #95e454;">"Good evening, Emacs!"</span>))))
+(cancel-timer my-timer)
+</pre>
+</div>
+
+<p>
+This way, you can effectively schedule commands in Emacs, similar to scheduling tasks with the `at` command in a Linux environment.
+</p>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2024-02-16 Fri 13:54</p>
+<p class="author">Author: Leslie S Russell</p>
+<p class="date">Created: 2024-02-17 Sat 09:43</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-02-17 Sat 09:43 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="author" content="Leslie S Russell" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet"
+		href="./assets/site.css" type="text/css"/>
+</head>
+<body>
+<div id="content" class="content">
+<p>
+*+title:      dwm keys
+*+date:       <span class="timestamp-wrapper"><span class="timestamp">[2024-02-16 Fri 14:24]</span></span>
+*+filetags:   :linux:
+*+identifier: 20240216T142442
+</p>
+
+<p>
+To create a user-friendly documentation for the keybindings listed, I'll use Unicode characters to represent the keys and provide a structured layout for easy reading. This documentation will serve as a guide for users to quickly understand and utilize the keybindings in their workflow.
+</p>
+
+<div id="outline-container-org66f98fe" class="outline-2">
+<h2 id="org66f98fe">DWM Keybindings Guide</h2>
+<div class="outline-text-2" id="text-org66f98fe">
+<p>
+This document outlines the keybindings configured in your DWM (Dynamic Window Manager) setup. These keybindings are designed to enhance your productivity by providing quick access to common tasks such as adjusting volume, brightness, managing windows, and launching applications.
+</p>
+</div>
+
+<div id="outline-container-orga8fbae3" class="outline-3">
+<h3 id="orga8fbae3">System Control</h3>
+<div class="outline-text-3" id="text-orga8fbae3">
+<ul class="org-ul">
+<li><b><b>Volume &amp; Brightness:</b></b>
+<ul class="org-ul">
+<li>🔈 Mute: `XF86AudioMute`</li>
+<li>🔊 Increase Volume: `XF86AudioRaiseVolume` (+5%)</li>
+<li>🔉 Decrease Volume: `XF86AudioLowerVolume` (-5%)</li>
+<li>🌞 Increase Brightness: `XF86MonBrightnessUp` (+5%)</li>
+<li>🌜 Decrease Brightness: `XF86MonBrightnessDown` (-5%)</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org299f019" class="outline-3">
+<h3 id="org299f019">Application Launchers</h3>
+<div class="outline-text-3" id="text-org299f019">
+<ul class="org-ul">
+<li><b><b>Launchers:</b></b>
+<ul class="org-ul">
+<li>🚀 Application Launcher: `Super + p` ➜ Launch Rofi</li>
+<li>📝 Emacs Client: `Super + z` ➜ Open Emacsclient</li>
+<li>🖥️ Terminal (File Manager): `Super + Enter` ➜ Open Alacritty with lf</li>
+<li>🖥️ Terminal: `Super + Shift + Enter` ➜ Open Alacritty</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge6b611a" class="outline-2">
+<h2 id="orge6b611a">Window Management</h2>
+<div class="outline-text-2" id="text-orge6b611a">
+<ul class="org-ul">
+<li><b><b>Basic Window Operations:</b></b>
+<ul class="org-ul">
+<li>Toggle Status Bar: `Super + b`</li>
+<li>Toggle Gaps: `Super + Control + t`</li>
+<li>Toggle Floating: `Super + Shift + Space`</li>
+<li>Toggle Fullscreen: `Super + f`</li>
+<li>Focus Next/Previous Window: `Super + j/k`</li>
+<li>Increase/Decrease Number of Master Windows: `Super + i/d`</li>
+<li>Adjust Master Window Size: `Super + h/l` (Decrease/Increase by 5%)</li>
+<li>Adjust Floating Window Size: `Super + Shift + h/l` (Increase/Decrease by 25%)</li>
+<li>Reset Floating Window Size: `Super + Shift + o`</li>
+<li>Move Stack: `Super + Shift + j/k` (Move up/down)</li>
+<li>Zoom: `Super + Enter`</li>
+<li>View Previous Tag: `Super + Tab`</li>
+</ul></li>
+</ul>
+</div>
+
+<div id="outline-container-org30a683e" class="outline-3">
+<h3 id="org30a683e">Gaps Management</h3>
+<div class="outline-text-3" id="text-org30a683e">
+<ul class="org-ul">
+<li><b><b>Adjusting Gaps:</b></b>
+<ul class="org-ul">
+<li>Increase/Decrease Gaps: `Super + Control + i/d`</li>
+<li>Increase/Decrease Inner Gaps: `Super + Shift + i` / `Super + Control + Shift + i`</li>
+<li>Increase/Decrease Outer Gaps: `Super + Control + o` / `Super + Control + Shift + o`</li>
+<li>Adjust Horizontal/Vertical Gaps: `Super + Control + 6/7/8/9` and `Super + Control + Shift + 6/7/8/9`</li>
+<li>Reset to Default Gaps: `Super + Control + Shift + d`</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org13d2892" class="outline-3">
+<h3 id="org13d2892">Layouts and Monitors</h3>
+<div class="outline-text-3" id="text-org13d2892">
+<ul class="org-ul">
+<li><b><b>Layouts:</b></b>
+<ul class="org-ul">
+<li>Tile: `Super + t`</li>
+<li>Floating: `Super + Shift + f`</li>
+<li>Monocle: `Super + m`</li>
+<li>Cycle Through Layouts: `Super + Control + comma/period`</li>
+<li>View All Tags: `Super + 0`</li>
+<li>Apply Tag to Window: `Super + Shift + 0`</li>
+<li>Focus Monitor: `Super + comma/period`</li>
+<li>Move Window to Monitor: `Super + Shift + comma/period`</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgefc8653" class="outline-3">
+<h3 id="orgefc8653">Miscellaneous</h3>
+<div class="outline-text-3" id="text-orgefc8653">
+<ul class="org-ul">
+<li><b><b>Other Commands:</b></b>
+<ul class="org-ul">
+<li>Quit DWM: `Super + Shift + q` ➜ Kills bar.sh and DWM</li>
+<li>Kill Active Window: `Super + Shift + c`</li>
+<li>Restart DWM: `Super + Shift + r`</li>
+<li>Hide Window: `Super + e`</li>
+<li>Restore Window: `Super + Shift + e`</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org8ad8630" class="outline-3">
+<h3 id="org8ad8630">Tagging</h3>
+<div class="outline-text-3" id="text-org8ad8630">
+<ul class="org-ul">
+<li><b><b>Workspace Tags:</b></b>
+<ul class="org-ul">
+<li>Access Workspaces 1-9: `Super + [1-9]`</li>
+<li>Assign Window to Workspace 1-9: `Super + Shift + [1-9]`</li>
+</ul></li>
+</ul>
+
+<p>
+This documentation provides a comprehensive overview of your DWM keybindings, designed to enhance your interaction with your desktop environment efficiently.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Leslie S Russell</p>
+<p class="date">Created: 2024-02-17 Sat 09:43</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
