@@ -1,1 +1,10 @@
-theme: minima
+title: This Old Emacs
+description: You don't need better tools; you need to know your tools better.
+url: "https://lesliesrussell.github.io"
+
+permalink: /:categories/:title/
+
+markdown: kramdown
+plugins:
+- jekyll-feed
+- jekyll-seo-tag
