@@ -19,7 +19,8 @@ Hello! I'm Leslie, and this is my personal blog where I share my thoughts, exper
   *What do I have to do to make this work*
 
 ### About Me
-I'm Leslie, a passionate blogger and tech enthusiast. Here, I share my journey and insights on various topics. [Read more about me.](#)
+
+[Read more about me.](about.md)
 
 ### Contact
 Feel free to [get in touch](mailto:your-email@example.com) or connect with me on [social media](#).
