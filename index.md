@@ -15,7 +15,8 @@ Hello! I'm Leslie, and this is my personal blog where I share my thoughts, exper
   *A brief description of what this post is about.*
 - [Post Title 3](#)
   *A brief description of what this post is about.*
-- [Welcome]{% post_url _posts/2024-10-04-test.md %}
+- [Welcome]({% post_url _posts/2024-10-04-test.md %})
+  *What do I have to do to make this work*
 
 ### About Me
 I'm Leslie, a passionate blogger and tech enthusiast. Here, I share my journey and insights on various topics. [Read more about me.](#)
