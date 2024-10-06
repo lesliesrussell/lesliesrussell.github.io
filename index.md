@@ -15,7 +15,7 @@ Hello! I'm Leslie, and this is my personal blog where I share my thoughts, exper
   *A brief description of what this post is about.*
 - [Post Title 3](#)
   *A brief description of what this post is about.*
-- [Welcome]({% post_url _posts/2024-10-04-test.md %})
+- [Welcome](#)
   *What do I have to do to make this work*
 
 ### About Me
